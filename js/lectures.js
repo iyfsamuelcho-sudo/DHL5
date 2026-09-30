@@ -18,6 +18,7 @@
     slides: { label: "Slides", plural: "Slides", icon: "spark" },
     pdf: { label: "PDF", plural: "PDFs", icon: "download" },
     audio: { label: "Audio", plural: "Audio", icon: "play" },
+    playlist: { label: "Playlist", plural: "Playlists", icon: "youtube" },
     link: { label: "Link", plural: "Links", icon: "external" }
   };
   const t = type => TYPES[type] || TYPES.article;
@@ -28,6 +29,13 @@
   const catUrl = c => `lectures.html?c=${encodeURIComponent(c.id)}`;
   const lecUrl = (c, l) => `${catUrl(c)}&l=${encodeURIComponent(l.id)}`;
   const ytId = s => { s = String(s || "").trim(); const m = s.match(/(?:youtu\.be\/|v=|\/shorts\/|\/embed\/|\/live\/)([A-Za-z0-9_-]{11})/) || s.match(/^([A-Za-z0-9_-]{11})$/); return m ? m[1] : ""; };
+  /* YouTube playlist ID from a link like https://www.youtube.com/playlist?list=PL… */
+  const listId = s => { s = String(s || "").trim(); const m = s.match(/[?&]list=([A-Za-z0-9_-]+)/) || s.match(/^((?:PL|UU|FL|OL|LL|RD)[A-Za-z0-9_-]+)$/); return m ? m[1] : ""; };
+  const playlistBlock = (id, title, note) => `
+    <div class="lec-playlist">
+      <div class="lec-video"><iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=${esc(id)}&rel=0" title="${esc(title)} (YouTube playlist)" loading="lazy" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>
+      <p class="lec-playlist-note">${icon("youtube", "icon icon-sm")}<span>${esc(note)}</span><a href="https://www.youtube.com/playlist?list=${esc(id)}" target="_blank" rel="noopener">Open the playlist on YouTube<span class="sr-only"> (opens in a new tab)</span></a></p>
+    </div>`;
   const ext = u => String(u || "").split("?")[0].split(".").pop().toLowerCase();
   const abs = u => { try { return new URL(u, location.href).href; } catch (e) { return u; } };
 
@@ -83,8 +91,8 @@
               <span class="lec-cat-body">
                 <h3>${esc(c.title)}</h3>
                 ${c.description ? `<span class="lec-bio">${bioHtml(c.description)}</span>` : ""}
-                <span class="lec-count">${ls.length ? `${ls.length} ${ls.length === 1 ? "lecture" : "lectures"}` : "Lectures coming soon"}</span>
-                ${ls.length ? `<span class="lec-types">${typeTags(ls)}</span>` : ""}
+                <span class="lec-count">${ls.length ? `${ls.length} ${ls.length === 1 ? "lecture" : "lectures"}` : listId(c.playlist) ? "YouTube playlist" : "Lectures coming soon"}</span>
+                ${ls.length || listId(c.playlist) ? `<span class="lec-types">${typeTags(ls)}${listId(c.playlist) && !ls.some(l => l.type === "playlist") ? `<span class="lec-type type-playlist">${icon("youtube", "icon icon-sm")}Playlist</span>` : ""}</span>` : ""}
               </span></a></li>`;
           }).join("") : '<li class="empty">No categories yet. Add them in Pages CMS → Lectures.</li>'}</ul>
         </div>
@@ -131,6 +139,7 @@
               <span class="lec-types">${typeTags(ls)}</span>
             </div>
           </div>
+          ${listId(c.playlist) ? `<details class="lec-cat-playlist"><summary class="btn btn-mango">${icon("play")}Watch the full playlist</summary>${playlistBlock(listId(c.playlist), c.title, "Use the playlist button in the player to pick a video.")}</details>` : ""}
           <div class="filter-bar lec-filters">
             <form class="search-bar" role="search" id="lec-cs-form" aria-label="Search this category">
               <label for="lec-cs" class="sr-only">Search this category</label>
@@ -175,7 +184,7 @@
   function renderLecture(c, l) {
     const all = lecturesOf(c).sort(byNewest);
     const i = all.findIndex(x => x.id === l.id), prev = all[i + 1], next = all[i - 1];
-    const k = t(l.type), yt = ytId(l.youtube), isShort = /\/shorts\//.test(String(l.youtube || ""));
+    const k = t(l.type), pl = listId(l.playlist) || listId(l.youtube), yt = ytId(l.youtube), isShort = !pl && /\/shorts\//.test(String(l.youtube || ""));
     setHero(l.title, l.summary, [["Home", "index.html"], ["Lectures", "lectures.html"], [c.title, catUrl(c)], [l.title, ""]]);
     const pdfFile = (l.files || []).map(f => f.file || f.url).find(u => u && ext(u) === "pdf" && !isExternal(u));
     root.innerHTML = `
@@ -183,8 +192,10 @@
         <article class="wrap article lecture" aria-label="${esc(l.title)}">
           <p class="feed-meta"><span class="lec-type type-${esc(l.type)}">${icon(k.icon, "icon icon-sm")}${k.label}</span>${l.date ? `<time datetime="${esc(l.date)}">${longDate(l.date)}</time>` : ""}<a href="${esc(catUrl(c))}">${esc(c.title)}</a></p>
           ${l.speaker ? `<p class="article-byline">By <strong>${esc(l.speaker)}</strong></p>` : ""}
-          ${yt ? `<div class="lec-video${isShort ? " is-short" : ""}"><iframe src="https://www.youtube-nocookie.com/embed/${esc(yt)}?rel=0" title="${esc(l.title)}" loading="lazy" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>` : ""}
-          ${!yt && l.image ? `<figure class="article-image"><img src="${esc(l.image)}" alt=""></figure>` : ""}
+          ${yt && pl ? `<div class="lec-video"><iframe src="https://www.youtube-nocookie.com/embed/${esc(yt)}?list=${esc(pl)}&rel=0" title="${esc(l.title)}" loading="lazy" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div><p class="lec-playlist-note">${icon("youtube", "icon icon-sm")}<span>This video is part of a playlist.</span><a href="https://www.youtube.com/playlist?list=${esc(pl)}" target="_blank" rel="noopener">Open the playlist on YouTube<span class="sr-only"> (opens in a new tab)</span></a></p>`
+            : pl ? playlistBlock(pl, l.title, "Use the playlist button in the player to pick a video.")
+            : yt ? `<div class="lec-video${isShort ? " is-short" : ""}"><iframe src="https://www.youtube-nocookie.com/embed/${esc(yt)}?rel=0" title="${esc(l.title)}" loading="lazy" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>` : ""}
+          ${!yt && !pl && l.image ? `<figure class="article-image"><img src="${esc(l.image)}" alt=""></figure>` : ""}
           ${l.audio ? `<audio class="lec-audio" controls preload="none" src="${esc(l.audio)}">Your browser can't play this audio. <a href="${esc(l.audio)}">Download it</a>.</audio>` : ""}
           ${l.content ? `<div class="article-body">${articleHtml(l.content)}</div>` : ""}
           ${pdfFile ? `<div class="lec-pdf"><iframe src="${esc(pdfFile)}" title="${esc(l.title)} (PDF)" loading="lazy"></iframe></div>` : ""}

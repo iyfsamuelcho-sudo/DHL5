@@ -798,3 +798,11 @@ a.contact-btn:hover { filter: brightness(.95); text-decoration: underline; }
 .lec-profile .lec-bio { font-size: 1.05rem; margin-bottom: 1rem; }
 .lec-profile .lec-bio ul { padding-left: 1.2rem; }
 .lec-video.is-short { aspect-ratio: 9 / 16; max-width: 22rem; margin-inline: auto; }
+.lec-type.type-playlist { background: #fde9e8; color: #a3221d; }
+.lec-playlist-note { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .75rem; font-size: .92rem; color: var(--text-soft); margin: -.5rem 0 1.25rem; }
+.lec-playlist-note .icon { color: var(--yt); }
+.lec-cat-playlist { margin: -.5rem 0 1.75rem; }
+.lec-cat-playlist > summary { list-style: none; display: inline-flex; }
+.lec-cat-playlist > summary::-webkit-details-marker { display: none; }
+.lec-cat-playlist[open] > summary { margin-bottom: 1rem; }
+.lec-cat-playlist .lec-video { max-width: 52rem; }
