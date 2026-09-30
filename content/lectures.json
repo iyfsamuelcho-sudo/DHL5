@@ -14,6 +14,14 @@
           "date": "2026-09-30",
           "youtube": "https://www.youtube.com/shorts/Nwvs5lzkXmc",
           "enabled": true
+        },
+        {
+          "id": "The-Lectures-on-the-Gospel-of-John",
+          "title": "The Lectures on the Gospel of John",
+          "type": "video",
+          "date": "2026-09-30",
+          "youtube": "https://www.youtube.com/show/VLPLHWDQEdNzKKwcZc7I1JdA-_NYElZU4M_Z?sbp=KgtqSTZ6OVNVUEtpRUAB",
+          "enabled": false
         }
       ]
     },
