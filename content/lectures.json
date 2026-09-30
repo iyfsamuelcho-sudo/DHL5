@@ -5,7 +5,17 @@
       "title": "Dr. Pastor Ock Soo Park",
       "description": "- Senior Pastor of Good News Gangnam Church\n- Founder of International Youth Fellowship (IYF)\n- Founder of Gracias Choir\n- Chairman of the Board of Gimcheon University",
       "image": "assets/images/p_posp (1).jpg",
-      "enabled": true
+      "enabled": true,
+      "lectures": [
+        {
+          "id": "The-heart-of-Jesus",
+          "title": "The heart of Jesus",
+          "type": "video",
+          "date": "2026-09-30",
+          "youtube": "https://www.youtube.com/shorts/Nwvs5lzkXmc",
+          "enabled": true
+        }
+      ]
     },
     {
       "id": "samuel-cho",
