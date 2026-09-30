@@ -64,6 +64,7 @@ The design uses a **Seoul-metro route map** as its visual language. Foreigners i
 ├── korea.html              Redirects old links to live-in-korea.html
 ├── news.html               All news, or one full article (news.html?id=...)
 ├── mentors.html            Mentor profiles and contact links
+├── lectures.html           Lecture categories, lectures, articles, slides and files
 ├── admin.html              News Admin: sign in and publish news (not linked, not indexed)
 ├── pathways.html           Four pathways with stations you can mark as done
 ├── leadership.html         Leadership courses with practical assignments
@@ -91,7 +92,8 @@ The design uses a **Seoul-metro route map** as its visual language. Foreigners i
 │   ├── academy.js          Academy levels, courses, certificates
 │   ├── learning.js         Contents Hub, landing pages, course player, quizzes, certificates
 │   ├── ai-chat.js          AI assistant (demo mode and live mode)
-│   └── admin.js            News Admin form, preview and publishing (admin.html only)
+│   ├── admin.js            News Admin form, preview and publishing (admin.html only)
+│   └── lectures.js         The Lectures page (lectures.html only)
 │
 ├── content/                ← ALL EDITABLE CONTENT (JSON), edited with Pages CMS
 │   ├── posts.json          News and Latest Ministry Content
@@ -103,6 +105,7 @@ The design uses a **Seoul-metro route map** as its visual language. Foreigners i
 │   ├── daily-verses.json   Verse of the day
 │   ├── ai-knowledge.json   Answers for the DHL AI assistant
 │   ├── mentors.json        Mentor profiles (mentors.html)
+│   ├── lectures.json       Lecture categories and lectures (lectures.html)
 │   ├── bible-journey.json  Bible Journey pathway, programs and their courses
 │   ├── page-text.json      Page titles and headings
 │   └── site-settings.json  Email, forms and social links
@@ -166,9 +169,19 @@ Then open http://localhost:8000. (On Windows, use `python` instead of `python3`.
 1. In the repository, open **Settings → Pages**.
 2. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
 3. Choose branch **main** and folder **/ (root)**, then **Save**.
-4. After a minute or two, your address appears, for example `https://your-username.github.io/dhl/`.
+4. After a minute or two, your address appears, for example `https://your-username.github.io/dhl/`. Then connect your domain (below).
 
-All links are relative, so they work at that address. Then find and replace `https://your-username.github.io/your-repository` with your real address in every `.html` file, `sitemap.xml` and `robots.txt`.
+All links are relative, so they work at any address.
+
+### Your domain: www.diasporahubforleaders.com
+
+The site is set up for **www.diasporahubforleaders.com** (registered at Namecheap). The `CNAME` file in the main folder tells GitHub Pages to use this domain. Keep it when you upload files, or GitHub forgets the domain.
+
+- **Namecheap → Domain List → Manage → Advanced DNS:** four *A Records* for host `@` (185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153) and a *CNAME Record* for host `www` pointing to `your GitHub username` + `.github.io`.
+- **GitHub → repository → Settings → Pages → Custom domain:** `www.diasporahubforleaders.com`, then tick **Enforce HTTPS** once the check is green.
+- Keep **Auto-Renew** on in Namecheap so the domain never expires.
+
+The page addresses used for sharing on Facebook (`og:url`, `canonical`), `sitemap.xml`, `robots.txt` and the backend settings already use this domain.
 
 ## 6. Connect YouTube
 
@@ -177,7 +190,7 @@ Without a key, the Media page shows the videos in `content/videos.json`. With a 
 1. **Channel ID:** YouTube Studio → Settings → Channel → Advanced settings → copy the Channel ID (starts with `UC`).
 2. **API key:** at console.cloud.google.com, create a project, enable **YouTube Data API v3**, then go to **Credentials → Create credentials → API key**.
 3. **Restrict the key.** This step is essential:
-   - Application restrictions → **Websites** → add `https://your-username.github.io/*` (and `http://localhost:8000/*` while testing).
+   - Application restrictions → **Websites** → add `https://www.diasporahubforleaders.com/*` and `https://diasporahubforleaders.com/*` (and `http://localhost:8000/*` while testing).
    - API restrictions → **Restrict key** → only **YouTube Data API v3**.
 4. In `js/content.js`, paste the key (the DHL channel ID `UCy-688NReUqpEgWUziM2n8A` is already set):
    ```js
@@ -498,7 +511,7 @@ You need a GitHub account, a free Cloudflare account and Node.js (LTS, from node
 2. Edit `wrangler.toml`:
    - `GITHUB_OWNER` and `GITHUB_REPO`: from your repository address `github.com/OWNER/REPO`
    - `GITHUB_BRANCH`: usually `main`
-   - `ADMIN_PAGE_URL`: e.g. `https://your-username.github.io/your-repository/admin.html`
+   - `ADMIN_PAGE_URL`: e.g. `https://www.diasporahubforleaders.com/admin.html`
    - `ADMIN_USERS`: GitHub usernames allowed to publish, comma-separated
    - `POSTS_PATH`: leave as `content/posts.json`
 3. Run:
@@ -533,7 +546,7 @@ Commit the change. The Worker address isn't secret.
 
 ### Creating your first post
 
-1. Open `https://your-username.github.io/your-repository/admin.html` (bookmark it).
+1. Open `https://www.diasporahubforleaders.com/admin.html` (bookmark it).
 2. Click **Sign in with GitHub**, then **Authorize** (the first time only).
 3. Fill in the title, date, post type, category and short description. Then write the full content, or add an external link.
 4. Check the preview on the right, then click **Publish post**.
@@ -590,6 +603,7 @@ No server, database or secret keys are needed. You sign in with GitHub, and only
 - **Reorder:** drag items in a list.
 - **AI answers:** open *AI assistant: knowledge* to add questions and the answers DHL AI should give (section 12).
 - **Page titles and headings:** open *Page titles & headings*, then a page, and change its title, introduction or section headings. Leave a field empty to go back to the original text.
+- **Lectures:** open *Lectures*. Add, edit or remove **categories** (name, description, photo), and inside each category add **lectures**. A lecture can have a YouTube link (the video plays on the page), full text, an MP3 recording, and files such as PowerPoint slides, PDFs or Word handouts. Upload files under about 20 MB. For bigger files, put them on Google Drive and paste the link. On the website, PowerPoint and Word files get a **View online** button (Microsoft's free viewer), and PDFs are shown right on the page. Lecture pages have addresses like `lectures.html?c=mind-education&l=heart-1`, so don't change an ID after sharing a link.
 - **Mentors:** open *Mentors* to add, edit or remove mentor profiles: photo, role, languages, areas, credentials, a short bio, and contact links (KakaoTalk open chat link or ID, Messenger link, Gmail address). Untick *Show this mentor* to hide a profile. Every "Talk to a mentor" button on the site opens the Mentors page (`mentors.html`). Only publish photos and contact details with each mentor's permission, and only list real credentials.
 - **Bible Journey programs and their courses:** open *Bible Journey: pathway & programs*. Under each program (Gospel Class, Discipleship Training, Mind Education), add or remove certificate course IDs, for example `gospel-foundations`. The courses appear on the program card, on the Bible Journey page and on the program's own page. Keep the program IDs `gospel`, `discipleship` and `mind`. The pathway steps (Gospel → Discipleship → Leadership → Ministry) are edited here too. Mind Education has its own section on the Bible Journey page, alongside the pathway.
 - **Photos:** in an image field, upload a photo. It's saved in `assets/images/`. Use landscape photos under about 400 KB.
@@ -622,7 +636,7 @@ The project has more than 100 files, and GitHub's web uploader accepts at most 1
 **Without GitHub Desktop:** on your repository page, click **Add file → Upload files** and drag in the folders a few at a time (under 100 files per upload), clicking **Commit changes** after each.
 
 ### C. Turn on the website
-Repository → **Settings → Pages** → Source: **Deploy from a branch**, Branch: **main**, folder **/ (root)** → **Save**. Your address appears after a minute or two, like `https://your-username.github.io/dhl/`.
+Repository → **Settings → Pages** → Source: **Deploy from a branch**, Branch: **main**, folder **/ (root)** → **Save**. After a minute or two, the site is online. Then connect your domain (section 5, *Your domain*).
 
 ### D. Updating later
 - **Content:** use Pages CMS (section 19).

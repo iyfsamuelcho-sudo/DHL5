@@ -4,4 +4,4 @@ Disallow: /knowledge/
 Disallow: /admin.html
 Disallow: /backend-example/
 
-Sitemap: https://your-username.github.io/your-repository/sitemap.xml
+Sitemap: https://www.diasporahubforleaders.com/sitemap.xml
