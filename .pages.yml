@@ -1505,11 +1505,138 @@ content:
         label: 'Heading: Our mentors'
         type: string
       - name: mentors_title_text
-        label: 'Paragraph under heading: Every mentor has been approved by DHL…'
+        label: 'Paragraph under heading: Choose a mentor and send them a message on…'
         type: text
       - name: channels_title
         label: 'Heading: Not sure who to contact?'
         type: string
+    - name: lectures
+      label: Lectures
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: Lectures'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: Videos, articles, slides and study materials…'
+        type: text
+- name: lectures
+  label: Lectures
+  type: file
+  path: content/lectures.json
+  description: 'The Lectures page: categories, and the lectures inside each one (videos, articles, slides, PDFs, audio, links).'
+  fields:
+  - name: intro
+    label: Introduction (optional)
+    type: text
+    description: Shown above the categories.
+  - name: categories
+    label: Categories
+    type: object
+    list: true
+    fields:
+    - name: id
+      label: ID (unique, no spaces)
+      type: string
+      required: true
+      description: Lowercase letters, numbers and hyphens. Used in links, so don't change it after publishing. e.g. gospel-bible.
+        Used in links, so don't change it after publishing.
+    - name: title
+      label: Category name
+      type: string
+      required: true
+    - name: description
+      label: Description
+      type: text
+    - name: image
+      label: Category photo
+      type: image
+      description: Landscape photo, shown on the category card and page.
+    - name: enabled
+      label: Show this category
+      type: boolean
+    - name: lectures
+      label: Lectures
+      type: object
+      list: true
+      fields:
+      - name: id
+        label: ID (unique, no spaces)
+        type: string
+        required: true
+        description: Lowercase letters, numbers and hyphens. Used in links, so don't change it after publishing. e.g. when-crisis-comes
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: type
+        label: Type
+        type: select
+        required: true
+        options:
+          values:
+          - video
+          - article
+          - slides
+          - pdf
+          - audio
+          - link
+      - name: date
+        label: Date
+        type: date
+        options:
+          format: yyyy-MM-dd
+      - name: speaker
+        label: Speaker or author
+        type: string
+      - name: summary
+        label: Short summary
+        type: text
+        description: One or two sentences shown in the list.
+      - name: content
+        label: Full text (optional)
+        type: text
+        description: For articles or lecture notes. Blank line = new paragraph; start a line with > for a highlighted verse.
+      - name: youtube
+        label: YouTube video link (optional)
+        type: string
+        description: e.g. https://www.youtube.com/watch?v=… — the video plays on the page.
+      - name: audio
+        label: Audio file (optional)
+        type: file
+        description: MP3 recording of the lecture.
+      - name: files
+        label: 'Files: slides, PDFs, handouts (optional)'
+        type: object
+        list: true
+        fields:
+        - name: label
+          label: Label
+          type: string
+          description: e.g. Lecture slides
+        - name: file
+          label: Upload a file
+          type: file
+          description: PowerPoint, PDF or Word. Keep files under about 20 MB.
+        - name: url
+          label: 'Or: link to a file'
+          type: string
+          description: e.g. a Google Drive or Google Slides link, for large files
+      - name: link
+        label: Other link (optional)
+        type: string
+        description: e.g. a news article on this site, or a website
+      - name: image
+        label: Picture (optional)
+        type: image
+        description: Shown when there's no video.
+      - name: scripture
+        label: Scripture reference (optional)
+        type: string
+        description: e.g. Romans 8:28
+      - name: enabled
+        label: Show this lecture
+        type: boolean
 - name: site-settings
   label: Site settings
   type: file
