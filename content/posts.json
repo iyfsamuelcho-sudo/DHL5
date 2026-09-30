@@ -36,6 +36,16 @@
       "url": "https://www.facebook.com/photo?fbid=122261213684112039&set=a.122205030278112039&locale=ko_KR",
       "pinned": false,
       "sample": false
+    },
+    {
+      "title": " Gimcheon University",
+      "date": "2026-09-30",
+      "type": "youtube",
+      "category": "Life in Korea",
+      "description": "Gimcheon University",
+      "image": "assets/images/Screenshot 2026-09-30 194252.png",
+      "pinned": false,
+      "sample": false
     }
   ]
 }
