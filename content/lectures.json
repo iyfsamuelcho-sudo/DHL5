@@ -5,6 +5,12 @@
       "title": "Pastor. Ock Soo Park",
       "image": "assets/images/p_posp (1).jpg",
       "enabled": true
+    },
+    {
+      "id": "samuel-cho",
+      "title": "Prof. Gichun \"Samuel\" Cho",
+      "image": "assets/images/KakaoTalk_20260930_215447888 (1).jpg",
+      "enabled": true
     }
   ]
 }
