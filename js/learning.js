@@ -142,6 +142,7 @@
       ...bibleItems().map(i => ({ ...i, cat: "Bible Journey" })),
       ...koreaGuides.map(g => ({ id: g.id, cat: "Live in Korea", kind: areaName(g.area), title: g.title, text: g.text, level: g.level, minutes: g.minutes, href: `live-in-korea.html#${g.area}` })),
       ...qaItems.map((x, i) => ({ id: `qa${i}`, cat: "Live in Korea", kind: "Q&A", title: x.q, text: x.a, level: "Beginner", minutes: 2, href: "live-in-korea.html#qa" })),
+      ...(window.lectureCategories || []).filter(c => c && c.enabled !== false).flatMap(c => (c.lectures || []).filter(l => l && l.enabled !== false && l.title).map(l => ({ id: l.id, cat: "Lectures", kind: c.title, title: l.title, text: l.summary || "", level: "Beginner", minutes: 0, href: `lectures.html?c=${encodeURIComponent(c.id)}&l=${encodeURIComponent(l.id)}` }))),
       ...openCourses().map(c => ({ id: c.id, cat: "Certificate Course", kind: c.category, title: c.title, text: c.description, level: c.level, minutes: c.hours * 60, href: `course.html?id=${c.id}` }))
     ];
     const input = $("#hub-search"), out = $("#hub-results"), cnt = $("#hub-count");

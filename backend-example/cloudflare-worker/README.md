@@ -28,7 +28,7 @@ Cloudflare. The website only knows the worker's address.
    ```
    Paste your key when asked. It is stored encrypted by Cloudflare.
 5. **Edit `wrangler.toml`:**
-   - `ALLOWED_ORIGINS`: your site, e.g. `https://your-username.github.io`
+   - `ALLOWED_ORIGINS`: your site, already set to `https://www.diasporahubforleaders.com,https://diasporahubforleaders.com`
    - `PROMPT_URL`: the published address of `ai/dhl-ai-system-prompt.md`
    - `MODEL`: a current Claude model name from the documentation
 6. **Deploy:**

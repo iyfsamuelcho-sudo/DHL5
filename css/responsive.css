@@ -62,8 +62,8 @@
   .metro--horizontal .station-body { padding-top: 0; }
 }
 
-/* ≥ 1180px: show the quick navigation in the header */
-@media (min-width: 1180px) {
+/* ≥ 1280px: show the quick navigation in the header */
+@media (min-width: 1280px) {
   .quick-nav { display: block; }
   .brand { margin-right: 1rem; }
   .quick-nav { margin-right: auto; }
@@ -107,3 +107,5 @@
 @media (min-width: 800px) { .mentor-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 900px) { .mind-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 3rem; } }
 @media (min-width: 1200px) { .mentor-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 700px) { .lec-cat-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .lec-cat-grid { grid-template-columns: repeat(3, 1fr); } }

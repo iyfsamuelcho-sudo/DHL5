@@ -1,0 +1,54 @@
+{
+  "intro": "",
+  "categories": [
+    {
+      "id": "gospel-bible",
+      "title": "Gospel & Bible",
+      "enabled": true,
+      "image": "assets/images/placeholder-gospel.svg",
+      "description": "Messages and Bible studies about the Gospel of Jesus Christ: sin, forgiveness, faith and new life.",
+      "lectures": [
+        {
+          "id": "when-crisis-comes",
+          "title": "When Crisis Comes: Danger or Opportunity?",
+          "type": "article",
+          "enabled": true,
+          "date": "2026-09-29",
+          "speaker": "@Samuel Cho",
+          "scripture": "Romans 8:28",
+          "summary": "A crisis consists of two elements: danger and opportunity. Saul looked at Goliath and saw a threat, but David looked through the eyes of faith and saw an opportunity.",
+          "content": "",
+          "youtube": "",
+          "audio": "",
+          "files": [],
+          "link": "news.html?id=2026-09-29-when-crisis-comes-danger-or-opportunity",
+          "image": "assets/images/news/2026-09-29-when-crisis-comes.jpg"
+        }
+      ]
+    },
+    {
+      "id": "mind-education",
+      "title": "Mind Education",
+      "enabled": true,
+      "image": "assets/images/mind-education.jpg",
+      "description": "Lectures on the world of the heart: thoughts, self-control, relationships and a renewed mind.",
+      "lectures": []
+    },
+    {
+      "id": "leadership",
+      "title": "Leadership & Ministry",
+      "enabled": true,
+      "image": "assets/images/placeholder-discipleship.svg",
+      "description": "Training for leaders: servant leadership, mentoring, small groups and cross-cultural ministry.",
+      "lectures": []
+    },
+    {
+      "id": "life-in-korea",
+      "title": "Life in Korea",
+      "enabled": true,
+      "image": "assets/images/live-in-korea.jpg",
+      "description": "Practical lectures on Korean language, work, visas and daily life in Korea.",
+      "lectures": []
+    }
+  ]
+}

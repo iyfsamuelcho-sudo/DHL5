@@ -734,3 +734,53 @@ a.contact-btn:hover { filter: brightness(.95); text-decoration: underline; }
 .pc-state.is-done { color: var(--teal); font-weight: 600; }
 .pc-name { color: var(--text-soft); }
 .mentor-channels { grid-template-columns: 1fr !important; }
+
+/* ---------- Lectures ---------- */
+.lec-intro { max-width: 44rem; margin-bottom: 1.5rem; }
+.lec-cat-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; }
+.lec-cat a { display: flex; flex-direction: column; height: 100%; border-radius: var(--r-lg); overflow: hidden; background: var(--surface); border: 1px solid var(--line); color: var(--ink); text-decoration: none; }
+.lec-cat a:hover { border-color: var(--navy); }
+.lec-cat-img { display: block; aspect-ratio: 16 / 9; background: var(--navy-2); }
+.lec-cat-img img { width: 100%; height: 100%; object-fit: cover; }
+.lec-cat-body { display: flex; flex-direction: column; gap: .4rem; padding: 1.25rem 1.35rem 1.4rem; flex: 1; }
+.lec-cat-body h3 { margin: 0; font-size: 1.3rem; }
+.lec-cat-body p { margin: 0; color: var(--text-soft); flex: 1; }
+.lec-count { font-size: .9rem; font-weight: 600; color: var(--navy-3); margin: .25rem 0 0; }
+.lec-types { display: flex; flex-wrap: wrap; gap: .35rem; }
+.lec-type { display: inline-flex; align-items: center; gap: .3rem; padding: .1rem .6rem; border-radius: 999px; font-size: .78rem; font-weight: 600; background: #eef2f6; color: var(--navy-3); }
+.lec-type.type-video { background: #fde9e8; color: #a3221d; }
+.lec-type.type-article { background: #e3f4f2; color: #0b5a55; }
+.lec-type.type-slides { background: var(--mango-soft); color: var(--mango-text); }
+.lec-type.type-pdf { background: #fdecef; color: #9b1c2e; }
+.lec-type.type-audio { background: #efeafc; color: #4b3596; }
+.lec-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; }
+.lec-card a { display: grid; gap: .3rem; padding: 1.1rem 1.25rem; border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--line); color: var(--ink); text-decoration: none; }
+.lec-card a:hover { border-color: var(--navy); }
+.lec-card .lec-type { justify-self: start; }
+.lec-card h3 { margin: .15rem 0 0; font-size: 1.12rem; }
+.lec-meta { display: flex; flex-wrap: wrap; gap: .25rem 1rem; margin: 0; font-size: .88rem; color: var(--text-soft); }
+.lec-meta span { display: inline-flex; align-items: center; gap: .3rem; }
+.lec-summary { margin: .2rem 0 0; color: var(--text-soft); font-size: .98rem; }
+.lec-open { font-weight: 600; color: var(--blue); font-size: .92rem; }
+.lec-profile { display: flex; flex-wrap: wrap; gap: 1.25rem; align-items: center; margin-bottom: 1.75rem; }
+.lec-profile-img { width: 11rem; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--r-md); }
+.lec-profile h2 { font-size: var(--step-2); margin-bottom: .25rem; }
+.lec-filters { margin-bottom: 1rem; }
+.lecture .feed-meta a { color: var(--navy-3); }
+.lec-video { aspect-ratio: 16 / 9; border-radius: var(--r-md); overflow: hidden; background: #000; margin: 1.25rem 0; }
+.lec-video iframe { width: 100%; height: 100%; border: 0; }
+.lec-audio { width: 100%; margin: 1rem 0; }
+.lec-pdf { height: 70vh; min-height: 24rem; margin: 1.25rem 0; border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; }
+.lec-pdf iframe { width: 100%; height: 100%; border: 0; }
+.lec-files { list-style: none; margin: 0 0 1.5rem; padding: 0; display: grid; gap: .5rem; }
+.lec-file { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; padding: .75rem 1rem; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--bg); }
+.lec-file-kind { font-size: .78rem; font-weight: 700; color: var(--navy-3); background: #e4edfb; padding: .1rem .5rem; border-radius: 4px; }
+.lec-file-name { flex: 1 1 12rem; font-weight: 600; overflow-wrap: anywhere; }
+.lec-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0 1rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.lec-nav a { display: grid; gap: .15rem; color: var(--ink); text-decoration: none; font-weight: 600; }
+.lec-nav a span { font-size: .8rem; font-weight: 600; color: var(--text-soft); }
+.lec-nav a:hover { color: var(--blue); }
+.lec-nav .lec-next { text-align: right; }
+.quick-nav a, .start-btn, .brand-text span, .brand-text strong { white-space: nowrap; }
+.quick-nav a { padding: .5rem .6rem; font-size: .93rem; }
+.header-inner { gap: .75rem; }

@@ -38,7 +38,8 @@
     "ai-knowledge.json": d => { window.aiKnowledge = list(d.entries); },
     "mentors.json": d => { window.mentors = list(d.mentors); window.mentorsIntro = d.intro || ""; },
     "bible-journey.json": d => { window.bibleJourneyPath = list(d.path); window.bibleJourneyPrograms = list(d.programs); },
-    "page-text.json": d => { window.pageText = d.pages || {}; }
+    "page-text.json": d => { window.pageText = d.pages || {}; },
+    "lectures.json": d => { window.lectureCategories = list(d.categories); window.lecturesIntro = d.intro || ""; }
   };
   const SCRIPTS = ["js/youtube.js", "js/main.js", "js/pathways.js", "js/academy.js", "js/learning.js", "js/ai-chat.js"];
 

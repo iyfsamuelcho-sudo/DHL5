@@ -9,7 +9,7 @@ main = "worker.js"
 compatibility_date = "2026-09-01"
 
 [vars]
-# Your repository: https://github.com/GITHUB_OWNER/GITHUB_REPO
+# Your repository: https://github.com/GITHUB_OWNER/GITHUB_REPO  (fill these in: your GitHub username and repository name)
 GITHUB_OWNER = "your-github-username"
 GITHUB_REPO = "your-repository"
 GITHUB_BRANCH = "main"
@@ -19,7 +19,7 @@ POSTS_PATH = "content/posts.json"
 GITHUB_CLIENT_ID = "your-oauth-app-client-id"
 
 # The full address of admin.html on your published site
-ADMIN_PAGE_URL = "https://your-github-username.github.io/your-repository/admin.html"
+ADMIN_PAGE_URL = "https://www.diasporahubforleaders.com/admin.html"
 
 # GitHub usernames allowed to publish, comma-separated
 ADMIN_USERS = "your-github-username"

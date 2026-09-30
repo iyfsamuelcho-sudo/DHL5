@@ -175,6 +175,10 @@
       "mentors_title": "Our mentors",
       "mentors_title_text": "Choose a mentor and send them a message on KakaoTalk, Messenger or email.",
       "channels_title": "Not sure who to contact?"
+    },
+    "lectures": {
+      "page_title": "Lectures",
+      "page_intro": "Videos, articles, slides and study materials from DHL. Choose a category to see all its lectures."
     }
   }
 }

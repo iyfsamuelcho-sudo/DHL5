@@ -1,22 +1,21 @@
 {
+  "intro": "",
   "mentors": [
     {
       "id": "gichun-cho",
       "name": "Gichun Cho",
       "enabled": true,
-      "photo": "assets/images/440844207_7867407863289479_5486010800853345827_n (1).jpg",
+      "photo": "",
       "role": "DHL Mentor",
-      "languages": [
-        "English",
-        "Korean",
-        "Tagalog"
-      ],
-      "areas": [
-        " Gospel, Discipleship, Mind Education, Life in Korea."
-      ],
-      "messenger": "https://m.me/gichun.cho",
-      "email": "iyfsamuelcho@gmail.com",
-      "facebook": "https://www.facebook.com/profile.php?id=61570484866629"
+      "languages": [],
+      "areas": [],
+      "credentials": [],
+      "bio": "",
+      "availability": "",
+      "kakao": "",
+      "messenger": "",
+      "email": "",
+      "facebook": "https://www.facebook.com/gichun.cho"
     }
   ]
 }
