@@ -583,16 +583,16 @@ content:
       label: 'Or: certificate course ID (optional)'
       type: string
     - name: form
-      label: Form button (optional)
+      label: Button (optional)
       type: select
-      description: Which form from Site settings the button opens.
+      description: mentor = opens the Mentors page. Others open that form from Site settings.
       options:
         values:
         - ''
+        - mentor
         - prayer
         - contact
         - bibleStudy
-        - mentor
         - community
         - leadership
         - events
@@ -680,16 +680,16 @@ content:
       label: Description
       type: text
     - name: form
-      label: Form button (optional)
+      label: Button (optional)
       type: select
-      description: Which form from Site settings the button opens.
+      description: mentor = opens the Mentors page. Others open that form from Site settings.
       options:
         values:
         - ''
+        - mentor
         - prayer
         - contact
         - bibleStudy
-        - mentor
         - community
         - leadership
         - events
@@ -858,6 +858,658 @@ content:
       label: Use this answer
       type: boolean
       description: Untick to hide an answer without deleting it
+- name: mentors
+  label: Mentors
+  type: file
+  path: content/mentors.json
+  description: Mentor profiles on the Mentors page, which every "Talk to a mentor" button opens. Only publish contact details
+    and photos with each mentor's permission.
+  fields:
+  - name: intro
+    label: Introduction (optional)
+    type: text
+    description: Shown above the mentor profiles.
+  - name: mentors
+    label: Mentors
+    type: object
+    list: true
+    fields:
+    - name: id
+      label: ID (unique, no spaces)
+      type: string
+      required: true
+      description: Lowercase letters, numbers and hyphens. Used in links, so don't change it after publishing.
+    - name: name
+      label: Name
+      type: string
+      required: true
+    - name: enabled
+      label: Show this mentor
+      type: boolean
+      description: Untick to hide a profile without deleting it
+    - name: photo
+      label: Photo
+      type: image
+      description: A square photo works best.
+    - name: role
+      label: Role or title
+      type: string
+      description: e.g. Pastor, Bible teacher, Korean language mentor
+    - name: languages
+      label: Languages (one per line)
+      type: string
+      list: true
+    - name: areas
+      label: Areas (one per line)
+      type: string
+      list: true
+      description: e.g. Gospel, Discipleship, Mind Education, Life in Korea. Visitors can filter by these.
+    - name: credentials
+      label: Credentials (one per line)
+      type: string
+      list: true
+      description: Only list real credentials, e.g. degrees, ordination, years of ministry, certificates.
+    - name: bio
+      label: About
+      type: text
+    - name: availability
+      label: Availability (optional)
+      type: string
+      description: e.g. Weekday evenings, Sunday afternoons
+    - name: kakao
+      label: KakaoTalk
+      type: string
+      description: A KakaoTalk open chat link (https://open.kakao.com/...) or a KakaoTalk ID
+    - name: messenger
+      label: Facebook Messenger link
+      type: string
+      description: e.g. https://m.me/username
+    - name: email
+      label: Email (Gmail)
+      type: string
+      description: e.g. name@gmail.com
+    - name: facebook
+      label: Facebook profile link (optional)
+      type: string
+- name: bible-journey
+  label: 'Bible Journey: pathway & programs'
+  type: file
+  path: content/bible-journey.json
+  description: The pathway on the Bible Journey page, and the three programs with their certificate courses.
+  fields:
+  - name: path
+    label: Pathway steps
+    type: object
+    list: true
+    fields:
+    - name: id
+      label: ID (unique, no spaces)
+      type: string
+      required: true
+      description: Lowercase letters, numbers and hyphens. Used in links, so don't change it after publishing.
+    - name: title
+      label: Title
+      type: string
+      required: true
+    - name: text
+      label: Short text
+      type: string
+    - name: href
+      label: Link to a page
+      type: string
+      description: e.g. gospel.html
+  - name: programs
+    label: Programs
+    type: object
+    list: true
+    fields:
+    - name: id
+      label: ID (unique, no spaces)
+      type: string
+      required: true
+      description: 'Lowercase letters, numbers and hyphens. Used in links, so don''t change it after publishing. Keep gospel,
+        discipleship and mind: they connect each program to its lessons.'
+    - name: title
+      label: Title
+      type: string
+      required: true
+    - name: text
+      label: Description
+      type: text
+    - name: href
+      label: Program page
+      type: string
+      description: e.g. gospel.html
+    - name: level
+      label: Level text
+      type: string
+      description: e.g. Beginner to Intermediate
+    - name: color
+      label: Color
+      type: select
+      options:
+        values:
+        - red
+        - blue
+        - violet
+        - teal
+        - mango
+    - name: photo
+      label: Photo key
+      type: select
+      options:
+        values:
+        - gospel
+        - discipleship
+        - mindEducation
+        - bibleJourney
+      description: Which section photo to show (see README section 16).
+    - name: courses
+      label: Certificate courses (course IDs, one per line)
+      type: string
+      list: true
+      description: Add or remove courses for this program. Use the ID from Certificate courses, e.g. gospel-foundations. They
+        appear on the program card, the Bible Journey page and the program's own page.
+- name: page-text
+  label: Page titles & headings
+  type: file
+  path: content/page-text.json
+  description: The title, introduction and section headings of each page. Leave a field empty to use the original text.
+  fields:
+  - name: pages
+    label: Pages
+    type: object
+    fields:
+    - name: index
+      label: Home
+      type: object
+      fields:
+      - name: page_intro
+        label: 'Page introduction: Helping foreigners in Korea move from…'
+        type: text
+      - name: verse_title
+        label: 'Heading: Verse of the day'
+        type: string
+      - name: feed_title
+        label: 'Heading: Latest ministry content'
+        type: string
+      - name: feed_title_text
+        label: 'Paragraph under heading: Videos, posts, studies and events, with the…'
+        type: text
+      - name: welcome_title
+        label: 'Heading: Welcome to DHL'
+        type: string
+      - name: journey_title
+        label: 'Heading: The ministry journey'
+        type: string
+      - name: areas_title
+        label: 'Heading: Explore DHL'
+        type: string
+      - name: areas_title_text
+        label: 'Paragraph under heading: Three ways to learn and grow. Start with…'
+        type: text
+      - name: paths_title
+        label: 'Heading: Start your pathway'
+        type: string
+      - name: paths_title_text
+        label: 'Paragraph under heading: Pick the line that fits where you are. We''ll…'
+        type: text
+      - name: academy_title
+        label: 'Heading: DHL Leadership Academy'
+        type: string
+      - name: academy_title_text
+        label: 'Paragraph under heading: A structured path to develop people who can…'
+        type: text
+      - name: korea_title
+        label: 'Heading: Live in Korea'
+        type: string
+      - name: ai_title
+        label: 'Heading: DHL AI Ministry Assistant'
+        type: string
+      - name: community_title
+        label: 'Heading: Community'
+        type: string
+      - name: community_title_text
+        label: 'Paragraph under heading: Groups meeting online and in person. Come as…'
+        type: text
+      - name: multi_title
+        label: 'Heading: Built to multiply'
+        type: string
+      - name: where_title
+        label: 'Heading: Where are you in your journey?'
+        type: string
+      - name: where_title_text
+        label: 'Paragraph under heading: Choose the line that describes you today.'
+        type: text
+      - name: verse_date
+        label: 'Heading: '
+        type: string
+    - name: pathways
+      label: Pathways
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: Choose your pathway'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: Four lines, like a metro map. Choose the one…'
+        type: text
+    - name: gospel
+      label: Gospel Class
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: Gospel Class'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: Learn the Gospel and understand the message…'
+        type: text
+      - name: intro_title
+        label: 'Heading: The good news, simply'
+        type: string
+      - name: topics_title
+        label: 'Heading: Gospel topics'
+        type: string
+      - name: topics_title_text
+        label: 'Paragraph under heading: Search by topic, word or Bible book.'
+        type: text
+      - name: course_title
+        label: 'Heading: Beginner Gospel course'
+        type: string
+      - name: course_title_text
+        label: 'Paragraph under heading: Six short lessons. Read the passages, think…'
+        type: text
+      - name: studies_title
+        label: 'Heading: Bible study lessons'
+        type: string
+      - name: studies_title_text
+        label: 'Paragraph under heading: Guided studies for personal reading or a…'
+        type: text
+      - name: pc_title
+        label: 'Heading: Certificate courses'
+        type: string
+      - name: pc_title_text
+        label: 'Paragraph under heading: Complete a course to earn a DHL certificate…'
+        type: text
+    - name: discipleship
+      label: Discipleship Training
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: Discipleship Training'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: Develop a deeper understanding of faith, the…'
+        type: text
+      - name: path_title
+        label: 'Heading: The discipleship pathway'
+        type: string
+      - name: path_title_text
+        label: 'Paragraph under heading: Seven steps, in order. Take each one with a…'
+        type: text
+      - name: dtopics_title
+        label: 'Heading: Discipleship topics'
+        type: string
+      - name: dtopics_title_text
+        label: 'Paragraph under heading: Study these alone or with your group.'
+        type: text
+      - name: pc_title
+        label: 'Heading: Certificate courses'
+        type: string
+      - name: pc_title_text
+        label: 'Paragraph under heading: Complete a course to earn a DHL certificate…'
+        type: text
+    - name: leadership
+      label: Leadership
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: Believers Become Leaders'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: Leadership at DHL means serving people well…'
+        type: text
+      - name: lcourses_title
+        label: 'Heading: Leadership courses'
+        type: string
+      - name: lcourses_title_text
+        label: 'Paragraph under heading: Study each topic, then complete the…'
+        type: text
+    - name: digital_ministry
+      label: Digital Ministry
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: Digital Ministry'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: Your phone can be a ministry tool. Learn to…'
+        type: text
+      - name: dt_title
+        label: 'Heading: Topics'
+        type: string
+      - name: dt_title_text
+        label: 'Paragraph under heading: Practical skills for reaching and teaching…'
+        type: text
+      - name: dl_title
+        label: 'Heading: Downloads'
+        type: string
+    - name: academy
+      label: Leadership Academy
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: DHL Leadership Academy'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: A structured training pathway designed to…'
+        type: text
+      - name: lvl_title
+        label: 'Heading: Five levels'
+        type: string
+      - name: lvl_title_text
+        label: 'Paragraph under heading: Each level builds on the one before. Your…'
+        type: text
+      - name: courses_title
+        label: 'Heading: Courses by level'
+        type: string
+      - name: courses_title_text
+        label: 'Paragraph under heading: Mark courses done as you complete them.…'
+        type: text
+      - name: cert_title
+        label: 'Heading: DHL certificates'
+        type: string
+      - name: rec_title
+        label: 'Heading: From training to commissioning'
+        type: string
+      - name: rec_title_text
+        label: 'Paragraph under heading: How someone is recognized and sent as a leader.'
+        type: text
+    - name: media
+      label: Media
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: Media'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: Messages, Bible studies, testimonies and…'
+        type: text
+      - name: hub_title
+        label: 'Heading: Social media leads here'
+        type: string
+      - name: hub_title_text
+        label: 'Paragraph under heading: We post on social media to meet people where…'
+        type: text
+      - name: fb_title
+        label: 'Heading: Latest from Facebook'
+        type: string
+    - name: community
+      label: Community
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: Community'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: Nobody should face life in a new country…'
+        type: text
+      - name: chan_title
+        label: 'Heading: Join a conversation'
+        type: string
+      - name: chan_title_text
+        label: 'Paragraph under heading: The easiest first step: say hello in one of…'
+        type: text
+      - name: groups_title
+        label: 'Heading: Bible study groups and fellowship'
+        type: string
+      - name: groups_title_text
+        label: 'Paragraph under heading: Online and in person. Ask to join and a…'
+        type: text
+      - name: future_title
+        label: 'Heading: Coming later'
+        type: string
+    - name: events
+      label: Events
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: Events'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: Bible studies, fellowship, training and…'
+        type: text
+      - name: up_title
+        label: 'Heading: Upcoming events'
+        type: string
+    - name: ai_assistant
+      label: AI Assistant
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: DHL AI Ministry Assistant'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: Ask a question and get an answer from DHL''s…'
+        type: text
+      - name: src_title
+        label: 'Heading: Two sources, kept separate'
+        type: string
+      - name: src_title_text
+        label: 'Paragraph under heading: DHL AI always tells you which source an…'
+        type: text
+      - name: kb_title
+        label: 'Heading: DHL knowledge base'
+        type: string
+    - name: about
+      label: About
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: About DHL'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: Diaspora Hub for Leaders: from connection to…'
+        type: text
+      - name: m_title
+        label: 'Heading: Multiplication'
+        type: string
+      - name: arch_title
+        label: 'Heading: Built to grow'
+        type: string
+    - name: contact
+      label: Contact
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: How can we help?'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: Choose what fits you best. Every form goes…'
+        type: text
+    - name: contents
+      label: Contents Hub
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: Contents Hub'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: Your learning hub for faith and life in…'
+        type: text
+      - name: cont_title
+        label: 'Heading: Continue learning'
+        type: string
+      - name: search_title
+        label: 'Heading: Search everything'
+        type: string
+      - name: eco_title
+        label: 'Heading: How it all fits together'
+        type: string
+      - name: eco_title_text
+        label: 'Paragraph under heading: Every part of DHL supports one pathway, from…'
+        type: text
+    - name: bible_journey
+      label: Bible Journey
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: Bible Journey'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: A spiritual growth pathway from discovering…'
+        type: text
+      - name: bjp_title
+        label: 'Heading: The pathway'
+        type: string
+      - name: bjp_title_text
+        label: 'Paragraph under heading: Gospel, then Discipleship, then Leadership…'
+        type: text
+      - name: prog_title
+        label: 'Heading: Three programs'
+        type: string
+      - name: prog_title_text
+        label: 'Paragraph under heading: Gospel Class and Discipleship Training…'
+        type: text
+      - name: bjm_title
+        label: 'Heading: Mind Education'
+        type: string
+      - name: bjm_title_text
+        label: 'Paragraph under heading: Learn principles for a healthy and…'
+        type: text
+      - name: bjf_title
+        label: 'Heading: Featured certificate courses'
+        type: string
+      - name: bjf_title_text
+        label: 'Paragraph under heading: Complete the lessons and quiz to earn a DHL…'
+        type: text
+      - name: browse_title
+        label: 'Heading: All lessons and topics'
+        type: string
+      - name: browse_title_text
+        label: 'Paragraph under heading: From Beginner to Advanced. Search, or filter…'
+        type: text
+      - name: rel_title
+        label: 'Heading: Related'
+        type: string
+    - name: mind_education
+      label: Mind Education
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: Mind Education'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: Learn principles for developing a healthy…'
+        type: text
+      - name: mi_title
+        label: 'Heading: The world of the heart'
+        type: string
+      - name: ml_title
+        label: 'Heading: Lessons'
+        type: string
+      - name: ml_title_text
+        label: 'Paragraph under heading: Eight lessons from Beginner to Advanced.…'
+        type: text
+      - name: pc_title
+        label: 'Heading: Certificate courses'
+        type: string
+      - name: pc_title_text
+        label: 'Paragraph under heading: Complete a course to earn a DHL certificate…'
+        type: text
+    - name: live_in_korea
+      label: Live in Korea
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: Live in Korea'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: A practical resource center for foreigners…'
+        type: text
+      - name: kp_title
+        label: 'Heading: The pathway'
+        type: string
+      - name: kp_title_text
+        label: 'Paragraph under heading: Learn Korean, understand Korea, study or…'
+        type: text
+      - name: ka_title
+        label: 'Heading: Six areas'
+        type: string
+      - name: ka_title_text
+        label: 'Paragraph under heading: Jump to what you need today.'
+        type: text
+      - name: kr_title
+        label: 'Heading: Recommended sites'
+        type: string
+      - name: kr_title_text
+        label: 'Paragraph under heading: Trusted places for Filipinos and other…'
+        type: text
+      - name: kf_title
+        label: 'Heading: Featured courses'
+        type: string
+      - name: kf_title_text
+        label: 'Paragraph under heading: Structured courses with a DHL certificate of…'
+        type: text
+      - name: kg_title
+        label: 'Heading: Guides and resources'
+        type: string
+      - name: kg_title_text
+        label: 'Paragraph under heading: Links go to official sites. Rules change, so…'
+        type: text
+      - name: expr_title
+        label: 'Heading: Useful Korean expressions'
+        type: string
+      - name: qa_title
+        label: 'Heading: Q&A Corner'
+        type: string
+      - name: qa_title_text
+        label: 'Paragraph under heading: Questions about Korea, faith, education,…'
+        type: text
+    - name: certificates
+      label: Certificate Courses
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: Certificate Courses'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: Learn structured skills and complete…'
+        type: text
+      - name: how_title
+        label: 'Heading: How it works'
+        type: string
+      - name: cat_title
+        label: 'Heading: Course catalog'
+        type: string
+      - name: cat_title_text
+        label: 'Paragraph under heading: Seven categories, from Beginner to Advanced.'
+        type: text
+      - name: hist_title
+        label: 'Heading: My completed courses'
+        type: string
+      - name: hist_title_text
+        label: 'Paragraph under heading: Saved in this browser. When DHL accounts are…'
+        type: text
+    - name: mentors
+      label: Mentors
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: Talk to a Mentor'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: Mentors walk with people one to one:…'
+        type: text
+      - name: mentors_title
+        label: 'Heading: Our mentors'
+        type: string
+      - name: mentors_title_text
+        label: 'Paragraph under heading: Every mentor has been approved by DHL…'
+        type: text
+      - name: channels_title
+        label: 'Heading: Not sure who to contact?'
+        type: string
 - name: site-settings
   label: Site settings
   type: file
@@ -882,9 +1534,6 @@ content:
       type: string
     - name: bibleStudy
       label: bibleStudy
-      type: string
-    - name: mentor
-      label: mentor
       type: string
     - name: community
       label: community
