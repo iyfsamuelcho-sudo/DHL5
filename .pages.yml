@@ -1546,12 +1546,23 @@ content:
       type: string
       required: true
     - name: description
-      label: Description
+      label: Description or credentials
       type: text
+      description: For a person, list credentials one per line starting with - , e.g. - Professor of Theology at Gimcheon
+        University
     - name: image
-      label: Category photo
+      label: Photo
       type: image
-      description: Landscape photo, shown on the category card and page.
+      description: For a person, a square photo of their face (at least 600 × 600 px). For a topic, a wide photo.
+    - name: style
+      label: Style
+      type: select
+      options:
+        values:
+        - ''
+        - person
+        - topic
+      description: person = speaker profile with a round photo; topic = wide photo. Empty = decided from the photo's shape.
     - name: enabled
       label: Show this category
       type: boolean
