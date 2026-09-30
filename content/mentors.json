@@ -1,20 +1,18 @@
 {
-  "intro": "",
   "mentors": [
     {
       "id": "gichun-cho",
       "name": "Gichun Cho",
       "enabled": true,
-      "photo": "",
       "role": "DHL Mentor",
-      "languages": [],
-      "areas": [],
-      "credentials": [],
-      "bio": "",
-      "availability": "",
-      "kakao": "",
-      "messenger": "",
-      "email": "",
+      "languages": [
+        "English",
+        "Korean",
+        "Tagalog"
+      ],
+      "areas": [
+        " Gospel, Discipleship, Mind Education, Life in Korea."
+      ],
       "facebook": "https://www.facebook.com/gichun.cho"
     }
   ]
