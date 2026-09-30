@@ -784,3 +784,17 @@ a.contact-btn:hover { filter: brightness(.95); text-decoration: underline; }
 .quick-nav a, .start-btn, .brand-text span, .brand-text strong { white-space: nowrap; }
 .quick-nav a { padding: .5rem .6rem; font-size: .93rem; }
 .header-inner { gap: .75rem; }
+
+/* Lectures: speaker profiles (portrait photos) and credential lists */
+.lec-bio ul { margin: .25rem 0 0; padding-left: 1.1rem; }
+.lec-bio li { margin-bottom: .2rem; }
+.lec-bio p { margin: 0 0 .4rem; }
+.lec-cat-body .lec-bio { color: var(--text-soft); flex: 1; font-size: .98rem; }
+.lec-cat.is-person .lec-cat-img { display: grid; place-items: center; aspect-ratio: auto; padding: 1.5rem 0 1rem; background: linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%); }
+.lec-cat.is-person .lec-cat-img img { width: 9rem; height: 9rem; border-radius: 50%; object-fit: cover; object-position: 50% 25%; border: 4px solid #fff; box-shadow: 0 6px 20px rgba(0,0,0,.25); }
+.lec-cat.is-person .lec-cat-body h3 { text-align: center; }
+.lec-profile.is-person { align-items: flex-start; }
+.lec-profile.is-person .lec-profile-img { width: 9rem; height: 9rem; aspect-ratio: 1; border-radius: 50%; object-position: 50% 25%; border: 4px solid var(--mango-soft); }
+.lec-profile .lec-bio { font-size: 1.05rem; margin-bottom: 1rem; }
+.lec-profile .lec-bio ul { padding-left: 1.2rem; }
+.lec-video.is-short { aspect-ratio: 9 / 16; max-width: 22rem; margin-inline: auto; }

@@ -31,6 +31,20 @@
   const ext = u => String(u || "").split("?")[0].split(".").pop().toLowerCase();
   const abs = u => { try { return new URL(u, location.href).href; } catch (e) { return u; } };
 
+  /* A category can be a topic or a person (speaker profile). "style" in
+     Pages CMS: person, topic, or empty = decide from the photo's shape. */
+  const isPerson = c => c.style === "person";
+  const bioHtml = text => articleHtml(String(text || "").trim());
+  const hasList = text => /^\s*[-*•]\s+/m.test(String(text || ""));
+  function markPortraits(scope) {
+    $$("[data-cat-style]", scope).forEach(card => {
+      if (card.dataset.catStyle !== "auto") return;
+      const img = card.querySelector("img"); if (!img) return;
+      const check = () => { if (img.naturalWidth && img.naturalWidth / img.naturalHeight < 1.25) card.classList.add("is-person"); };
+      img.complete ? check() : img.addEventListener("load", check, { once: true });
+    });
+  }
+
   function setHero(title, lede, crumbs) {
     const h1 = $(".page-hero h1"); if (h1) h1.textContent = title;
     const p = $(".page-hero .lede"); if (p) { p.textContent = lede || ""; p.hidden = !lede; }
@@ -63,11 +77,12 @@
           <h2 id="lec-cats-title" class="sr-only">Categories</h2>
           <ul class="lec-cat-grid">${cats.length ? cats.map(c => {
             const ls = lecturesOf(c);
-            return `<li class="lec-cat"><a href="${esc(catUrl(c))}">
-              <span class="lec-cat-img">${c.image ? `<img src="${esc(c.image)}" alt="" loading="lazy">` : ""}</span>
+            const style = c.style === "person" || c.style === "topic" ? c.style : "auto";
+            return `<li class="lec-cat${style === "person" ? " is-person" : ""}" data-cat-style="${style}"><a href="${esc(catUrl(c))}">
+              <span class="lec-cat-img">${c.image ? `<img src="${esc(c.image)}" alt="${style === "topic" ? "" : `Photo of ${esc(c.title)}`}" loading="lazy">` : ""}</span>
               <span class="lec-cat-body">
                 <h3>${esc(c.title)}</h3>
-                ${c.description ? `<p>${esc(c.description)}</p>` : ""}
+                ${c.description ? `<span class="lec-bio">${bioHtml(c.description)}</span>` : ""}
                 <span class="lec-count">${ls.length ? `${ls.length} ${ls.length === 1 ? "lecture" : "lectures"}` : "Lectures coming soon"}</span>
                 ${ls.length ? `<span class="lec-types">${typeTags(ls)}</span>` : ""}
               </span></a></li>`;
@@ -85,6 +100,7 @@
           <ul class="lec-list" id="lec-latest"></ul>
         </div>
       </section>`;
+    markPortraits(root);
     const input = $("#lec-search"), list = $("#lec-latest"), count = $("#lec-count");
     const draw = () => {
       const q = input.value.trim().toLowerCase();
@@ -100,16 +116,18 @@
   /* ---------- 2. One category ---------- */
   function renderCategory(c) {
     const ls = lecturesOf(c).sort(byNewest);
-    setHero(c.title, c.description, [["Home", "index.html"], ["Lectures", "lectures.html"], [c.title, ""]]);
+    setHero(c.title, hasList(c.description) ? "" : String(c.description || "").trim(), [["Home", "index.html"], ["Lectures", "lectures.html"], [c.title, ""]]);
+    const style = c.style === "person" || c.style === "topic" ? c.style : "auto";
     const present = [...new Set(ls.map(l => l.type))].filter(x => TYPES[x]);
     root.innerHTML = `
       <section class="section" aria-labelledby="lec-cat-title">
         <div class="wrap">
-          <div class="lec-profile">
-            ${c.image ? `<img class="lec-profile-img" src="${esc(c.image)}" alt="">` : ""}
+          <div class="lec-profile${style === "person" ? " is-person" : ""}" data-cat-style="${style}">
+            ${c.image ? `<img class="lec-profile-img" src="${esc(c.image)}" alt="${style === "topic" ? "" : `Photo of ${esc(c.title)}`}">` : ""}
             <div>
+              ${hasList(c.description) ? `<div class="lec-bio">${bioHtml(c.description)}</div>` : ""}
               <h2 id="lec-cat-title">Lectures</h2>
-              <p class="lec-count">${ls.length ? `${ls.length} ${ls.length === 1 ? "lecture" : "lectures"} in this category` : "Lectures for this category are coming soon."}</p>
+              <p class="lec-count">${ls.length ? `${ls.length} ${ls.length === 1 ? "lecture" : "lectures"}` : "Lectures coming soon."}</p>
               <span class="lec-types">${typeTags(ls)}</span>
             </div>
           </div>
@@ -125,6 +143,7 @@
           <p style="margin-top:1.5rem"><a class="text-link" href="lectures.html">All lecture categories</a></p>
         </div>
       </section>`;
+    markPortraits(root);
     let type = "all";
     const input = $("#lec-cs"), list = $("#lec-items");
     const draw = () => {
@@ -156,7 +175,7 @@
   function renderLecture(c, l) {
     const all = lecturesOf(c).sort(byNewest);
     const i = all.findIndex(x => x.id === l.id), prev = all[i + 1], next = all[i - 1];
-    const k = t(l.type), yt = ytId(l.youtube);
+    const k = t(l.type), yt = ytId(l.youtube), isShort = /\/shorts\//.test(String(l.youtube || ""));
     setHero(l.title, l.summary, [["Home", "index.html"], ["Lectures", "lectures.html"], [c.title, catUrl(c)], [l.title, ""]]);
     const pdfFile = (l.files || []).map(f => f.file || f.url).find(u => u && ext(u) === "pdf" && !isExternal(u));
     root.innerHTML = `
@@ -164,7 +183,7 @@
         <article class="wrap article lecture" aria-label="${esc(l.title)}">
           <p class="feed-meta"><span class="lec-type type-${esc(l.type)}">${icon(k.icon, "icon icon-sm")}${k.label}</span>${l.date ? `<time datetime="${esc(l.date)}">${longDate(l.date)}</time>` : ""}<a href="${esc(catUrl(c))}">${esc(c.title)}</a></p>
           ${l.speaker ? `<p class="article-byline">By <strong>${esc(l.speaker)}</strong></p>` : ""}
-          ${yt ? `<div class="lec-video"><iframe src="https://www.youtube-nocookie.com/embed/${esc(yt)}?rel=0" title="${esc(l.title)}" loading="lazy" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>` : ""}
+          ${yt ? `<div class="lec-video${isShort ? " is-short" : ""}"><iframe src="https://www.youtube-nocookie.com/embed/${esc(yt)}?rel=0" title="${esc(l.title)}" loading="lazy" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>` : ""}
           ${!yt && l.image ? `<figure class="article-image"><img src="${esc(l.image)}" alt=""></figure>` : ""}
           ${l.audio ? `<audio class="lec-audio" controls preload="none" src="${esc(l.audio)}">Your browser can't play this audio. <a href="${esc(l.audio)}">Download it</a>.</audio>` : ""}
           ${l.content ? `<div class="article-body">${articleHtml(l.content)}</div>` : ""}
