@@ -27,7 +27,7 @@
   <script src="js/content.js" defer></script>
   <script src="js/data-loader.js" defer></script>
 </head>
-<body data-page="ai">
+<body data-text-page="ai_assistant" data-page="ai">
   <a class="skip-link" href="#main">Skip to content</a>
   <header id="site-header" class="site-header">
     <noscript><nav class="header-inner" aria-label="Main"><a class="brand" href="index.html">DHL</a> <a href="pathways.html">Pathways</a> <a href="gospel.html">Gospel</a> <a href="live-in-korea.html">Life in Korea</a> <a href="community.html">Community</a> <a href="contact.html">Contact</a></nav></noscript>
@@ -36,8 +36,8 @@
   <main id="main">
     <section class="page-hero">
       <div class="wrap">
-        <h1>DHL AI Ministry Assistant</h1>
-        <p class="lede">Ask a question and get an answer from DHL's resources, with sources you can check. For personal or difficult questions, talk to a mentor.</p>
+        <h1 data-text="page_title">DHL AI Ministry Assistant</h1>
+        <p class="lede" data-text="page_intro">Ask a question and get an answer from DHL's resources, with sources you can check. For personal or difficult questions, talk to a mentor.</p>
       </div>
     </section>
 
@@ -61,7 +61,7 @@
     </section>
     <section class="section section--white" aria-labelledby="src-title">
       <div class="wrap">
-        <div class="section-head"><h2 id="src-title">Two sources, kept separate</h2><p>DHL AI always tells you which source an answer comes from.</p></div>
+        <div class="section-head"><h2 id="src-title" data-text="src_title">Two sources, kept separate</h2><p data-text="src_title_text">DHL AI always tells you which source an answer comes from.</p></div>
         <ul class="card-grid card-grid--2">
           <li class="topic-card"><h3>The Holy Bible</h3><p>The primary source. Answers start from what the text says, in its historical and literary context, with cross-references from Genesis to Revelation.</p><p class="refs">You'll see phrases like “In the Bible…” and “In this passage…”</p></li>
           <li class="topic-card"><h3>Rev. Ock Soo Park's books</h3><p>Teaching resources that explain Scripture, including <em>The Secret of Forgiveness of Sin and Being Born Again</em>, <em>Who Are You Who Is Dragging Me?</em> and teachings on the Tabernacle.</p><p class="refs">You'll see phrases like “Pastor Ock Soo Park explains this as…”</p></li>
@@ -71,7 +71,7 @@
     </section>
     <section class="section" aria-labelledby="kb-title">
       <div class="wrap split">
-        <div><h2 id="kb-title">DHL knowledge base</h2><p>The live assistant will draw only on materials DHL has approved and has permission to use. It retrieves relevant passages rather than reproducing whole books.</p></div>
+        <div><h2 id="kb-title" data-text="kb_title">DHL knowledge base</h2><p>The live assistant will draw only on materials DHL has approved and has permission to use. It retrieves relevant passages rather than reproducing whole books.</p></div>
         <pre class="kb-tree" aria-label="Knowledge base folders">knowledge/
 ├── bible/
 ├── ock-soo-park/

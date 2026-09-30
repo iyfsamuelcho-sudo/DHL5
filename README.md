@@ -63,6 +63,7 @@ The design uses a **Seoul-metro route map** as its visual language. Foreigners i
 ├── course.html             Course player: lessons, quiz, certificate (course.html?id=...)
 ├── korea.html              Redirects old links to live-in-korea.html
 ├── news.html               All news, or one full article (news.html?id=...)
+├── mentors.html            Mentor profiles and contact links
 ├── admin.html              News Admin: sign in and publish news (not linked, not indexed)
 ├── pathways.html           Four pathways with stations you can mark as done
 ├── leadership.html         Leadership courses with practical assignments
@@ -101,6 +102,9 @@ The design uses a **Seoul-metro route map** as its visual language. Foreigners i
 │   ├── korea-guides.json, qa.json, korean-expressions.json
 │   ├── daily-verses.json   Verse of the day
 │   ├── ai-knowledge.json   Answers for the DHL AI assistant
+│   ├── mentors.json        Mentor profiles (mentors.html)
+│   ├── bible-journey.json  Bible Journey pathway, programs and their courses
+│   ├── page-text.json      Page titles and headings
 │   └── site-settings.json  Email, forms and social links
 ├── .pages.yml              Pages CMS setup: the edit forms for content/
 │
@@ -585,6 +589,9 @@ No server, database or secret keys are needed. You sign in with GitHub, and only
 - **Remove something:** use the item's remove (trash) button, then **Save**.
 - **Reorder:** drag items in a list.
 - **AI answers:** open *AI assistant: knowledge* to add questions and the answers DHL AI should give (section 12).
+- **Page titles and headings:** open *Page titles & headings*, then a page, and change its title, introduction or section headings. Leave a field empty to go back to the original text.
+- **Mentors:** open *Mentors* to add, edit or remove mentor profiles: photo, role, languages, areas, credentials, a short bio, and contact links (KakaoTalk open chat link or ID, Messenger link, Gmail address). Untick *Show this mentor* to hide a profile. Every "Talk to a mentor" button on the site opens the Mentors page (`mentors.html`). Only publish photos and contact details with each mentor's permission, and only list real credentials.
+- **Bible Journey programs and their courses:** open *Bible Journey: pathway & programs*. Under each program (Gospel Class, Discipleship Training, Mind Education), add or remove certificate course IDs, for example `gospel-foundations`. The courses appear on the program card, on the Bible Journey page and on the program's own page. Keep the program IDs `gospel`, `discipleship` and `mind`. The pathway steps (Gospel → Discipleship → Leadership → Ministry) are edited here too. Mind Education has its own section on the Bible Journey page, alongside the pathway.
 - **Photos:** in an image field, upload a photo. It's saved in `assets/images/`. Use landscape photos under about 400 KB.
 - **Wait 1–2 minutes** after saving, then refresh the website.
 

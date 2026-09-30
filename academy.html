@@ -27,7 +27,7 @@
   <script src="js/content.js" defer></script>
   <script src="js/data-loader.js" defer></script>
 </head>
-<body data-page="academy" data-station="train">
+<body data-text-page="academy" data-page="academy" data-station="train">
   <a class="skip-link" href="#main">Skip to content</a>
   <header id="site-header" class="site-header">
     <noscript><nav class="header-inner" aria-label="Main"><a class="brand" href="index.html">DHL</a> <a href="pathways.html">Pathways</a> <a href="gospel.html">Gospel</a> <a href="live-in-korea.html">Life in Korea</a> <a href="community.html">Community</a> <a href="contact.html">Contact</a></nav></noscript>
@@ -37,8 +37,8 @@
     <section class="page-hero">
       <div class="wrap">
         <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="contents.html">Contents</a></li><li><a href="bible-journey.html">Bible Journey</a></li><li><span aria-current="page">Leadership Academy</span></li></ol></nav>
-        <h1>DHL Leadership Academy</h1>
-        <p class="lede">A structured training pathway designed to develop people who can serve, lead, mentor, and multiply ministry.</p>
+        <h1 data-text="page_title">DHL Leadership Academy</h1>
+        <p class="lede" data-text="page_intro">A structured training pathway designed to develop people who can serve, lead, mentor, and multiply ministry.</p>
         <div class="btn-row"><a class="btn btn-mango" data-form="leadership" href="#">Apply to the Academy</a><a class="btn btn-ghost" href="#levels">See the levels</a></div>
         <div class="here" data-you-are-here></div>
       </div>
@@ -46,27 +46,27 @@
 
     <section class="section section--white" aria-labelledby="lvl-title">
       <div class="wrap">
-        <div class="section-head"><h2 id="lvl-title">Five levels</h2><p>Each level builds on the one before. Your progress is shown on each step.</p></div>
+        <div class="section-head"><h2 id="lvl-title" data-text="lvl_title">Five levels</h2><p data-text="lvl_title_text">Each level builds on the one before. Your progress is shown on each step.</p></div>
         <ol class="ladder" data-academy-ladder></ol>
       </div>
     </section>
     <section class="section" id="levels" aria-labelledby="courses-title">
       <div class="wrap">
-        <div class="section-head"><h2 id="courses-title">Courses by level</h2><p>Mark courses done as you complete them. Level 5 is the practicum: real ministry, with supervision.</p></div>
+        <div class="section-head"><h2 id="courses-title" data-text="courses_title">Courses by level</h2><p data-text="courses_title_text">Mark courses done as you complete them. Level 5 is the practicum: real ministry, with supervision.</p></div>
         <div id="academy-levels"></div>
         <p class="fine-print">Progress is saved in this browser only until DHL accounts are available.</p>
       </div>
     </section>
     <section class="section section--white" id="certificates" aria-labelledby="cert-title">
       <div class="wrap">
-        <div class="section-head"><h2 id="cert-title">DHL certificates</h2></div>
+        <div class="section-head"><h2 id="cert-title" data-text="cert_title">DHL certificates</h2></div>
         <p class="notice">DHL certificates recognize completion of DHL's training and practical requirements. They are not government-accredited degrees or formal academic qualifications.</p>
         <ul class="cert-list" id="certificates-list" style="margin-top:1.5rem"></ul>
       </div>
     </section>
     <section class="section" id="recognition" aria-labelledby="rec-title">
       <div class="wrap">
-        <div class="section-head"><h2 id="rec-title">From training to commissioning</h2><p>How someone is recognized and sent as a leader.</p></div>
+        <div class="section-head"><h2 id="rec-title" data-text="rec_title">From training to commissioning</h2><p data-text="rec_title_text">How someone is recognized and sent as a leader.</p></div>
         <ol class="rec-steps" id="recognition-steps"></ol>
       </div>
     </section>

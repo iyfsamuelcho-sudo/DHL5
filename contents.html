@@ -27,7 +27,7 @@
   <script src="js/content.js" defer></script>
   <script src="js/data-loader.js" defer></script>
 </head>
-<body data-page="contents">
+<body data-text-page="contents" data-page="contents">
   <a class="skip-link" href="#main">Skip to content</a>
   <header id="site-header" class="site-header">
     <noscript><nav class="header-inner" aria-label="Main"><a class="brand" href="index.html">DHL</a> <a href="pathways.html">Pathways</a> <a href="gospel.html">Gospel</a> <a href="live-in-korea.html">Life in Korea</a> <a href="community.html">Community</a> <a href="contact.html">Contact</a></nav></noscript>
@@ -38,8 +38,8 @@
       <div class="wrap page-hero-grid">
         <div>
         <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li><li><span aria-current="page">Contents</span></li></ol></nav>
-          <h1>Contents Hub</h1>
-          <p class="lede">Your learning hub for faith and life in Korea. Choose a category, continue where you left off, or search everything.</p>
+          <h1 data-text="page_title">Contents Hub</h1>
+          <p class="lede" data-text="page_intro">Your learning hub for faith and life in Korea. Choose a category, continue where you left off, or search everything.</p>
         </div>
         <figure class="page-photo" data-photo-key="contents"></figure>
       </div>
@@ -54,12 +54,12 @@
     <section class="section section--white" aria-labelledby="cont-title">
       <div class="wrap split">
         <div>
-          <h2 id="cont-title">Continue learning</h2>
+          <h2 id="cont-title" data-text="cont_title">Continue learning</h2>
           <ul class="cont-list" id="hub-continue"></ul>
           <p class="fine-print" style="margin-top:.75rem">Progress is saved in this browser only until DHL accounts are available.</p>
         </div>
         <div>
-          <h2 id="search-title">Search everything</h2>
+          <h2 id="search-title" data-text="search_title">Search everything</h2>
           <form class="search-bar" id="hub-search-form" role="search" aria-label="Search all DHL contents">
           <label for="hub-search" class="sr-only">Search all DHL contents</label>
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -72,7 +72,7 @@
     </section>
     <section class="section section--navy" aria-labelledby="eco-title">
       <div class="wrap">
-        <div class="section-head"><h2 id="eco-title">How it all fits together</h2><p>Every part of DHL supports one pathway, from first contact to multiplying leaders.</p></div>
+        <div class="section-head"><h2 id="eco-title" data-text="eco_title">How it all fits together</h2><p data-text="eco_title_text">Every part of DHL supports one pathway, from first contact to multiplying leaders.</p></div>
         <div id="hub-ecosystem"></div>
         <ul class="fit-grid">
           <li><strong>Live in Korea</strong><span>Contact and Relationship: practical help that builds trust and friendship.</span></li>

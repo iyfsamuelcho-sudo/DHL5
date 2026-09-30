@@ -27,7 +27,7 @@
   <script src="js/content.js" defer></script>
   <script src="js/data-loader.js" defer></script>
 </head>
-<body data-page="about">
+<body data-text-page="about" data-page="about">
   <a class="skip-link" href="#main">Skip to content</a>
   <header id="site-header" class="site-header">
     <noscript><nav class="header-inner" aria-label="Main"><a class="brand" href="index.html">DHL</a> <a href="pathways.html">Pathways</a> <a href="gospel.html">Gospel</a> <a href="live-in-korea.html">Life in Korea</a> <a href="community.html">Community</a> <a href="contact.html">Contact</a></nav></noscript>
@@ -36,8 +36,8 @@
   <main id="main">
     <section class="page-hero">
       <div class="wrap">
-        <h1>About DHL</h1>
-        <p class="lede">Diaspora Hub for Leaders: from connection to commission.</p>
+        <h1 data-text="page_title">About DHL</h1>
+        <p class="lede" data-text="page_intro">Diaspora Hub for Leaders: from connection to commission.</p>
       </div>
     </section>
 
@@ -59,7 +59,7 @@
     <section class="section section--white" id="multiplication" aria-labelledby="m-title">
       <div class="wrap split">
         <div>
-          <h2 id="m-title">Multiplication</h2>
+          <h2 id="m-title" data-text="m_title">Multiplication</h2>
           <p>DHL is designed to reproduce leaders rather than depend permanently on one person. Each leader invests deeply in a few people. As they grow, some become leaders who start new groups, and the cycle continues.</p>
           <p class="principle">Leader → Disciple → New Leader → New Group</p>
           <p class="muted">“The things that thou hast heard of me among many witnesses, the same commit thou to faithful men, who shall be able to teach others also.” 2 Timothy 2:2 (KJV)</p>
@@ -69,7 +69,7 @@
     </section>
     <section class="section" aria-labelledby="arch-title">
       <div class="wrap split">
-        <div><h2 id="arch-title">Built to grow</h2><p>Today, DHL is a static website that anyone can host for free. It's built so a secure backend can be added later for accounts, course progress, groups, mentoring and an AI assistant, without rebuilding the site.</p></div>
+        <div><h2 id="arch-title" data-text="arch_title">Built to grow</h2><p>Today, DHL is a static website that anyone can host for free. It's built so a secure backend can be added later for accounts, course progress, groups, mentoring and an AI assistant, without rebuilding the site.</p></div>
         <pre class="arch" aria-label="Planned system architecture">DHL WEBSITE
       │
 Backend API
