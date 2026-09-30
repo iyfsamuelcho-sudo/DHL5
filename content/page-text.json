@@ -1,0 +1,180 @@
+{
+  "pages": {
+    "index": {
+      "page_intro": "Helping foreigners in Korea move from connection to discipleship, leadership, and mission.",
+      "verse_title": "Verse of the day",
+      "feed_title": "Latest ministry content",
+      "feed_title_text": "Videos, posts, studies and events, with the newest first.",
+      "welcome_title": "Welcome to DHL",
+      "journey_title": "The ministry journey",
+      "areas_title": "Explore DHL",
+      "areas_title_text": "Three ways to learn and grow. Start with whatever you need today.",
+      "paths_title": "Start your pathway",
+      "paths_title_text": "Pick the line that fits where you are. We'll show you each station.",
+      "academy_title": "DHL Leadership Academy",
+      "academy_title_text": "A structured path to develop people who can serve, lead, mentor and multiply ministry.",
+      "korea_title": "Live in Korea",
+      "ai_title": "DHL AI Ministry Assistant",
+      "community_title": "Community",
+      "community_title_text": "Groups meeting online and in person. Come as you are.",
+      "multi_title": "Built to multiply",
+      "where_title": "Where are you in your journey?",
+      "where_title_text": "Choose the line that describes you today.",
+      "verse_date": ""
+    },
+    "pathways": {
+      "page_title": "Choose your pathway",
+      "page_intro": "Four lines, like a metro map. Choose the one that fits you, follow the stations in order, and mark each one as you finish it."
+    },
+    "gospel": {
+      "page_title": "Gospel Class",
+      "page_intro": "Learn the Gospel and understand the message of salvation, at your own pace, with the Bible open.",
+      "intro_title": "The good news, simply",
+      "topics_title": "Gospel topics",
+      "topics_title_text": "Search by topic, word or Bible book.",
+      "course_title": "Beginner Gospel course",
+      "course_title_text": "Six short lessons. Read the passages, think through the questions, and mark each lesson done.",
+      "studies_title": "Bible study lessons",
+      "studies_title_text": "Guided studies for personal reading or a small group.",
+      "pc_title": "Certificate courses",
+      "pc_title_text": "Complete a course to earn a DHL certificate of completion."
+    },
+    "discipleship": {
+      "page_title": "Discipleship Training",
+      "page_intro": "Develop a deeper understanding of faith, the Bible, and Christian life, with a mentor and a group beside you.",
+      "path_title": "The discipleship pathway",
+      "path_title_text": "Seven steps, in order. Take each one with a mentor or small group, then mark it done.",
+      "dtopics_title": "Discipleship topics",
+      "dtopics_title_text": "Study these alone or with your group.",
+      "pc_title": "Certificate courses",
+      "pc_title_text": "Complete a course to earn a DHL certificate of completion."
+    },
+    "leadership": {
+      "page_title": "Believers Become Leaders",
+      "page_intro": "Leadership at DHL means serving people well and helping them grow. Every course ends with a practical assignment.",
+      "lcourses_title": "Leadership courses",
+      "lcourses_title_text": "Study each topic, then complete the assignment with your mentor."
+    },
+    "digital_ministry": {
+      "page_title": "Digital Ministry",
+      "page_intro": "Your phone can be a ministry tool. Learn to create content, host online studies and build community online.",
+      "dt_title": "Topics",
+      "dt_title_text": "Practical skills for reaching and teaching people online.",
+      "dl_title": "Downloads"
+    },
+    "academy": {
+      "page_title": "DHL Leadership Academy",
+      "page_intro": "A structured training pathway designed to develop people who can serve, lead, mentor, and multiply ministry.",
+      "lvl_title": "Five levels",
+      "lvl_title_text": "Each level builds on the one before. Your progress is shown on each step.",
+      "courses_title": "Courses by level",
+      "courses_title_text": "Mark courses done as you complete them. Level 5 is the practicum: real ministry, with supervision.",
+      "cert_title": "DHL certificates",
+      "rec_title": "From training to commissioning",
+      "rec_title_text": "How someone is recognized and sent as a leader."
+    },
+    "media": {
+      "page_title": "Media",
+      "page_intro": "Messages, Bible studies, testimonies and practical videos, newest first.",
+      "hub_title": "Social media leads here",
+      "hub_title_text": "We post on social media to meet people where they are, then invite them into real community.",
+      "fb_title": "Latest from Facebook"
+    },
+    "community": {
+      "page_title": "Community",
+      "page_intro": "Nobody should face life in a new country alone. Find people, groups and mentors here.",
+      "chan_title": "Join a conversation",
+      "chan_title_text": "The easiest first step: say hello in one of our group chats.",
+      "groups_title": "Bible study groups and fellowship",
+      "groups_title_text": "Online and in person. Ask to join and a leader will contact you.",
+      "future_title": "Coming later"
+    },
+    "events": {
+      "page_title": "Events",
+      "page_intro": "Bible studies, fellowship, training and camps. Everyone is welcome.",
+      "up_title": "Upcoming events"
+    },
+    "ai_assistant": {
+      "page_title": "DHL AI Ministry Assistant",
+      "page_intro": "Ask a question and get an answer from DHL's resources, with sources you can check. For personal or difficult questions, talk to a mentor.",
+      "src_title": "Two sources, kept separate",
+      "src_title_text": "DHL AI always tells you which source an answer comes from.",
+      "kb_title": "DHL knowledge base"
+    },
+    "about": {
+      "page_title": "About DHL",
+      "page_intro": "Diaspora Hub for Leaders: from connection to commission.",
+      "m_title": "Multiplication",
+      "arch_title": "Built to grow"
+    },
+    "contact": {
+      "page_title": "How can we help?",
+      "page_intro": "Choose what fits you best. Every form goes to a real person on the DHL team."
+    },
+    "contents": {
+      "page_title": "Contents Hub",
+      "page_intro": "Your learning hub for faith and life in Korea. Choose a category, continue where you left off, or search everything.",
+      "cont_title": "Continue learning",
+      "search_title": "Search everything",
+      "eco_title": "How it all fits together",
+      "eco_title_text": "Every part of DHL supports one pathway, from first contact to multiplying leaders."
+    },
+    "bible_journey": {
+      "page_title": "Bible Journey",
+      "page_intro": "A spiritual growth pathway from discovering the Gospel to becoming a disciple and growing as a leader.",
+      "bjp_title": "The pathway",
+      "bjp_title_text": "Gospel, then Discipleship, then Leadership and Ministry. Mind Education runs alongside every step.",
+      "prog_title": "Three programs",
+      "prog_title_text": "Gospel Class and Discipleship Training follow the pathway. Mind Education supports you at every step.",
+      "bjm_title": "Mind Education",
+      "bjm_title_text": "Learn principles for a healthy and disciplined mind, good relationships, and a wise perspective on life. Mind Education isn't a single step on the pathway: it helps you grow at every stage, from your first question about the Gospel to leading others.",
+      "bjf_title": "Featured certificate courses",
+      "bjf_title_text": "Complete the lessons and quiz to earn a DHL certificate of completion.",
+      "browse_title": "All lessons and topics",
+      "browse_title_text": "From Beginner to Advanced. Search, or filter by program and level.",
+      "rel_title": "Related"
+    },
+    "mind_education": {
+      "page_title": "Mind Education",
+      "page_intro": "Learn principles for developing a healthy and disciplined mind, good relationships, and a wise perspective on life.",
+      "mi_title": "The world of the heart",
+      "ml_title": "Lessons",
+      "ml_title_text": "Eight lessons from Beginner to Advanced. Read the passages, think through the questions, and mark each one done.",
+      "pc_title": "Certificate courses",
+      "pc_title_text": "Complete a course to earn a DHL certificate of completion."
+    },
+    "live_in_korea": {
+      "page_title": "Live in Korea",
+      "page_intro": "A practical resource center for foreigners living, studying, or working in Korea.",
+      "kp_title": "The pathway",
+      "kp_title_text": "Learn Korean, understand Korea, study or work, build relationships, and live well.",
+      "ka_title": "Six areas",
+      "ka_title_text": "Jump to what you need today.",
+      "kr_title": "Recommended sites",
+      "kr_title_text": "Trusted places for Filipinos and other foreigners in Korea.",
+      "kf_title": "Featured courses",
+      "kf_title_text": "Structured courses with a DHL certificate of completion.",
+      "kg_title": "Guides and resources",
+      "kg_title_text": "Links go to official sites. Rules change, so always check the official source.",
+      "expr_title": "Useful Korean expressions",
+      "qa_title": "Q&A Corner",
+      "qa_title_text": "Questions about Korea, faith, education, work and daily life."
+    },
+    "certificates": {
+      "page_title": "Certificate Courses",
+      "page_intro": "Learn structured skills and complete recognized DHL courses. Study the lessons, pass the quiz, and receive a certificate of completion.",
+      "how_title": "How it works",
+      "cat_title": "Course catalog",
+      "cat_title_text": "Seven categories, from Beginner to Advanced.",
+      "hist_title": "My completed courses",
+      "hist_title_text": "Saved in this browser. When DHL accounts are available, your history will move to your profile."
+    },
+    "mentors": {
+      "page_title": "Talk to a Mentor",
+      "page_intro": "Mentors walk with people one to one: listening, answering questions, studying the Bible together and helping with life in Korea. Choose someone and send them a message.",
+      "mentors_title": "Our mentors",
+      "mentors_title_text": "Choose a mentor and send them a message on KakaoTalk, Messenger or email.",
+      "channels_title": "Not sure who to contact?"
+    }
+  }
+}

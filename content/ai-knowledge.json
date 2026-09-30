@@ -13,6 +13,7 @@
       "sourceType": "dhl",
       "source": "DHL Community page",
       "link": "community.html",
+      "refs": [],
       "needsMentor": false,
       "enabled": true
     },
@@ -27,6 +28,7 @@
       "sourceType": "dhl",
       "source": "Live in Korea: TOPIK",
       "link": "live-in-korea.html",
+      "refs": [],
       "needsMentor": false,
       "enabled": true
     },
@@ -42,6 +44,7 @@
       "sourceType": "dhl",
       "source": "Live in Korea: Korean Society",
       "link": "live-in-korea.html",
+      "refs": [],
       "needsMentor": false,
       "enabled": true
     },
@@ -57,6 +60,7 @@
       "sourceType": "dhl",
       "source": "Live in Korea: Korean Language",
       "link": "live-in-korea.html",
+      "refs": [],
       "needsMentor": false,
       "enabled": true
     },
@@ -72,6 +76,7 @@
       "sourceType": "dhl",
       "source": "Live in Korea: Jobs",
       "link": "live-in-korea.html",
+      "refs": [],
       "needsMentor": false,
       "enabled": true
     },
@@ -87,6 +92,7 @@
       "sourceType": "dhl",
       "source": "DHL Leadership Academy",
       "link": "academy.html",
+      "refs": [],
       "needsMentor": false,
       "enabled": true
     },
@@ -102,15 +108,9 @@
       "sourceType": "dhl",
       "source": "DHL Pathways",
       "link": "pathways.html",
+      "refs": [],
       "needsMentor": false,
       "enabled": true
-    },
-    {
-      "question": "Hello ",
-      "answer": "Hello, Welcome to DHL",
-      "sourceType": "dhl",
-      "needsMentor": false,
-      "enabled": false
     }
   ]
 }

@@ -23,7 +23,8 @@
   const todayYMD = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; };
   const slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
   const bibleUrl = ref => `https://www.biblegateway.com/passage/?search=${encodeURIComponent(ref.replace(/–/g, "-"))}&version=${encodeURIComponent(CONFIG.bibleVersion || "NIV")}`;
-  const formUrl = key => (CONFIG.forms && CONFIG.forms[key]) || "";
+  /* "mentor" always opens the Mentors page; other keys are the forms in Site settings. */
+  const formUrl = key => (key === "mentor" ? "mentors.html" : (CONFIG.forms && CONFIG.forms[key]) || "");
 
   const ICONS = {
     signal: '<path d="M2 9.5a14.5 14.5 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8 15.5a5.5 5.5 0 0 1 8 0"/><circle cx="12" cy="19" r="1.2" fill="currentColor"/>',
@@ -162,7 +163,7 @@
     { heading: "Start here", links: [["index.html", "Home", "home"], ["contents.html", "Contents Hub", "contents"], ["about.html", "About DHL", "about"], ["pathways.html", "Pathways", "pathways"], ["ai-assistant.html", "AI Assistant", "ai"]] },
     { heading: "Bible Journey", links: [["bible-journey.html", "Bible Journey overview", "bible"], ["gospel.html", "Gospel Class", "gospel"], ["discipleship.html", "Discipleship Training", "discipleship"], ["mind-education.html", "Mind Education", "mind"], ["leadership.html", "Leadership", "leadership"], ["academy.html", "Leadership Academy", "academy"]] },
     { heading: "Live in Korea", links: [["live-in-korea.html", "Live in Korea overview", "live"], ["live-in-korea.html#korean", "Korean Language Class", "x"], ["live-in-korea.html#visa", "Visa", "x"], ["live-in-korea.html#job", "Job", "x"], ["live-in-korea.html#campus", "Campus Life", "x"], ["live-in-korea.html#qa", "Q&A Corner", "x"]] },
-    { heading: "Learn & connect", links: [["certificates.html", "Certificate Courses", "certs"], ["news.html", "News", "news"], ["digital-ministry.html", "Digital Ministry", "digital"], ["media.html", "Media", "media"], ["events.html", "Events", "events"], ["community.html", "Community", "community"], ["contact.html", "Contact & Prayer", "contact"]] }
+    { heading: "Learn & connect", links: [["certificates.html", "Certificate Courses", "certs"], ["news.html", "News", "news"], ["digital-ministry.html", "Digital Ministry", "digital"], ["media.html", "Media", "media"], ["events.html", "Events", "events"], ["community.html", "Community", "community"], ["mentors.html", "Mentors", "mentors"], ["contact.html", "Contact & Prayer", "contact"]] }
   ];
   const QUICK = [["contents.html", "Contents", "contents"], ["bible-journey.html", "Bible Journey", "bible"], ["live-in-korea.html", "Live in Korea", "live"], ["certificates.html", "Certificates", "certs"], ["community.html", "Community", "community"]];
   /* Sub-pages highlight their category in the quick navigation. */
@@ -236,15 +237,27 @@
     });
     $$("[data-form]").forEach(el => {
       const v = formUrl(el.dataset.form);
-      if (v) { el.href = v; el.target = "_blank"; el.rel = "noopener"; } else el.hidden = true;
+      if (v) { el.href = v; if (isExternal(v)) { el.target = "_blank"; el.rel = "noopener"; } } else el.hidden = true;
     });
+  }
+
+  /* ---------------- Page titles & headings (content/page-text.json) ----------------
+     Elements with data-text="key" take their text from Pages CMS, when filled in. */
+  function applyPageText() {
+    const t = (window.pageText || {})[document.body.dataset.textPage] || {};
+    $$("[data-text]").forEach(el => {
+      const v = t[el.dataset.text];
+      if (typeof v === "string" && v.trim()) el.textContent = v.trim();
+    });
+    const h1 = $("h1[data-text]");
+    if (h1 && t[h1.dataset.text] && document.body.dataset.textPage !== "index") document.title = `${h1.textContent} | ${CONFIG.name}`;
   }
 
   /* ---------------- "What's next" band on every page ---------------- */
   const NEXT = {
     about: { title: "Ready to take a step?", text: "Choose a pathway and we'll show you where to go next.", a: { label: "Choose your pathway", href: "pathways.html" }, b: { label: "Join the community", href: "community.html" } },
     gospel: { title: "What comes after the Gospel?", text: "Discipleship: growing as a follower of Jesus with others beside you.", a: { label: "Start Discipleship Training", href: "discipleship.html" }, b: { label: "Join a Bible study", form: "bibleStudy" } },
-    discipleship: { title: "Next on the Bible Journey: Mind Education", text: "Develop a healthy, disciplined mind and good relationships.", a: { label: "Start Mind Education", href: "mind-education.html" }, b: { label: "Meet a mentor", form: "mentor" } },
+    discipleship: { title: "Next on the Bible Journey: Leadership", text: "Leadership starts with serving one person well. Mind Education helps you grow alongside every step.", a: { label: "Start leadership training", href: "leadership.html" }, b: { label: "Mind Education", href: "mind-education.html" } },
     leadership: { title: "Ready for structured training?", text: "The Leadership Academy takes you from foundation to practicum.", a: { label: "Explore the Academy", href: "academy.html" }, b: { label: "Talk to a mentor", form: "mentor" } },
     live: { title: "Practical help is where friendships begin.", text: "Meet people who have walked the same road in Korea.", a: { label: "Join the community", href: "community.html" }, b: { label: "Explore the Bible Journey", href: "bible-journey.html" } },
     contents: { title: "Not sure where to start?", text: "Choose a pathway and we'll show you each step.", a: { label: "Start Your Journey", href: "pathways.html" }, b: { label: "Talk to a mentor", form: "mentor" } },
@@ -258,6 +271,7 @@
     community: { title: "Want someone to walk with you?", text: "Mentors meet with people one to one, online or in person.", a: { label: "Meet a mentor", form: "mentor" }, b: { label: "Begin discipleship", href: "discipleship.html" } },
     events: { title: "Can't find a time that works?", text: "Join the community chat to hear about new events first.", a: { label: "Join the community", href: "community.html" }, b: { label: "Contact DHL", form: "contact" } },
     news: { title: "Want updates as they happen?", text: "Join the community chat to hear news and events first.", a: { label: "Join the community", href: "community.html" }, b: { label: "See events", href: "events.html" } },
+    mentors: { title: "Want to grow with others too?", text: "Join a group, or start a pathway with a mentor beside you.", a: { label: "Join the community", href: "community.html" }, b: { label: "Choose a pathway", href: "pathways.html" } },
     ai: { title: "Some questions need a person.", text: "Our mentors are happy to talk through anything with you.", a: { label: "Talk to a DHL Mentor", form: "mentor" }, b: { label: "Explore the Gospel", href: "gospel.html" } }
   };
   function renderNextStep() {
@@ -667,11 +681,67 @@
     $("#channels").innerHTML = ch.map(([i, l, u, d]) => `<li><a class="social-tile social-${i}" href="${esc(safeUrl(u))}" target="_blank" rel="noopener">${icon(i)}<span><strong>${l}</strong><span>${d}</span></span></a></li>`).join("");
   }
 
+  /* ---------------- Mentors (content/mentors.json) ---------------- */
+  const CONTACT_ICONS = {
+    kakao: '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3.5c-5 0-9 3.2-9 7.1 0 2.5 1.6 4.7 4.1 6l-1 3.7c-.1.3.3.6.6.4l4.3-2.9c.3 0 .7.1 1 .1 5 0 9-3.2 9-7.2S17 3.5 12 3.5Z"/></svg>',
+    messenger: icon("messenger"), email: icon("mail"), facebook: icon("facebook")
+  };
+  function mentorContacts(m) {
+    const links = [];
+    if (m.kakao) {
+      const url = /^https?:/i.test(m.kakao) ? m.kakao : "";
+      links.push(url ? `<a class="contact-btn contact-kakao" href="${esc(safeUrl(url))}" target="_blank" rel="noopener">${CONTACT_ICONS.kakao}KakaoTalk<span class="sr-only"> (opens in a new tab)</span></a>`
+        : `<span class="contact-btn contact-kakao" title="KakaoTalk ID">${CONTACT_ICONS.kakao}KakaoTalk ID: ${esc(m.kakao)}</span>`);
+    }
+    if (m.messenger) links.push(`<a class="contact-btn contact-messenger" href="${esc(safeUrl(m.messenger))}" target="_blank" rel="noopener">${CONTACT_ICONS.messenger}Messenger<span class="sr-only"> (opens in a new tab)</span></a>`);
+    if (m.email) links.push(`<a class="contact-btn contact-email" href="mailto:${esc(m.email)}?subject=${encodeURIComponent("Mentoring through DHL")}">${CONTACT_ICONS.email}Email${/@gmail\.com$/i.test(m.email) ? " (Gmail)" : ""}</a>`);
+    if (m.facebook) links.push(`<a class="contact-btn contact-facebook" href="${esc(safeUrl(m.facebook))}" target="_blank" rel="noopener">${CONTACT_ICONS.facebook}Facebook<span class="sr-only"> (opens in a new tab)</span></a>`);
+    return links;
+  }
+  const initials = name => String(name || "?").split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join("");
+  function mentorCard(m) {
+    const contacts = mentorContacts(m);
+    return `<li class="mentor-card" id="${esc(m.id || slug(m.name))}">
+      <div class="mentor-top">
+        ${m.photo ? `<img class="mentor-photo" src="${esc(m.photo)}" alt="Photo of ${esc(m.name)}" width="112" height="112" loading="lazy">` : `<span class="mentor-photo mentor-initials" aria-hidden="true">${esc(initials(m.name))}</span>`}
+        <div>
+          <h2 class="mentor-name">${esc(m.name)}</h2>
+          ${m.role ? `<p class="mentor-role">${esc(m.role)}</p>` : ""}
+          ${(m.languages || []).length ? `<p class="mentor-langs">${icon("chat", "icon icon-sm")}${m.languages.map(esc).join(", ")}</p>` : ""}
+        </div>
+      </div>
+      ${(m.areas || []).length ? `<ul class="mentor-areas" aria-label="Areas">${m.areas.map(a => `<li>${esc(a)}</li>`).join("")}</ul>` : ""}
+      ${m.bio ? `<div class="mentor-bio">${articleHtml(m.bio)}</div>` : ""}
+      ${(m.credentials || []).length ? `<div class="mentor-creds"><h3>Credentials</h3><ul>${m.credentials.map(c => `<li>${icon("check", "icon icon-sm")}<span>${esc(c)}</span></li>`).join("")}</ul></div>` : ""}
+      ${m.availability ? `<p class="mentor-avail">${icon("clock", "icon icon-sm")}<span>${esc(m.availability)}</span></p>` : ""}
+      <div class="mentor-contact">${contacts.length ? contacts.join("") : '<p class="muted">Contact details coming soon. Meanwhile, reach us through the community chats below.</p>'}</div>
+    </li>`;
+  }
+  function initMentors() {
+    const list = (window.mentors || []).filter(m => m && m.enabled !== false && m.name);
+    const grid = $("#mentor-list"), filters = $("#mentor-filters");
+    const areas = [...new Set(list.flatMap(m => m.areas || []))];
+    const intro = (window.mentorsIntro || "").trim();
+    if (intro && $("#mentors-intro")) $("#mentors-intro").innerHTML = articleHtml(intro);
+    let area = "all";
+    const draw = () => {
+      const f = list.filter(m => area === "all" || (m.areas || []).includes(area));
+      grid.innerHTML = f.length ? f.map(mentorCard).join("") : `<li class="empty">No mentors are listed yet. Please contact us through the community chats below.</li>`;
+    };
+    if (areas.length > 1) renderChips(filters, [["all", "All mentors"], ...areas.map(a => [a, a])], v => { area = v; draw(); });
+    else filters.hidden = true;
+    draw();
+    const s = CONFIG.social || {};
+    const ch = [["chat", "KakaoTalk community", s.kakaoOpenChat, "Open chat for the DHL community"], ["messenger", "Messenger community", s.messenger, "Group chat on Messenger"], ["mail", "Email DHL", CONFIG.email ? `mailto:${CONFIG.email}` : "", CONFIG.email || ""]].filter(x => x[2]);
+    $("#mentor-channels").innerHTML = ch.map(([i, l, u, d]) => `<li><a class="social-tile social-${i}" href="${esc(safeUrl(u))}"${ext(u)}>${icon(i)}<span><strong>${l}</strong><span>${esc(d)}</span></span></a></li>`).join("");
+    if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView();
+  }
+
   /* ---------------- Start ---------------- */
   window.DHL = { $, $$, esc, icon, slug, safeUrl, ext, isExternal, formUrl, bibleUrl, refLinks, actionLink, announce, openDialog, renderChips, Progress, loadData, sampleBadge, statusBadge, longDate, renderLessonList, openTopic, wireTopics, photoImg, loadPhotos, feedCard, articleHtml };
 
-  renderHeader(); renderFooter(); applyConfig(); initPagePhotos(); renderNextStep(); initFacebook(); renderSocialHub(); renderHomeEvents(); initFeed();
-  const inits = { news: initNews, home: initHome, gospel: initGospel, discipleship: initDiscipleship, leadership: initLeadership, digital: initDigital, media: initMedia, events: initEvents, community: initCommunity };
+  renderHeader(); renderFooter(); applyPageText(); applyConfig(); initPagePhotos(); renderNextStep(); initFacebook(); renderSocialHub(); renderHomeEvents(); initFeed();
+  const inits = { mentors: initMentors, news: initNews, home: initHome, gospel: initGospel, discipleship: initDiscipleship, leadership: initLeadership, digital: initDigital, media: initMedia, events: initEvents, community: initCommunity };
   inits[page]?.();
   document.dispatchEvent(new CustomEvent("dhl:ready"));
 })();

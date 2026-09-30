@@ -35,7 +35,10 @@
     "community-groups.json": d => { window.communityGroups = list(d.groups); },
     "daily-verses.json": d => { window.dailyVerses = list(d.verses); window.dailyVerseVersion = d.version || "KJV"; },
     "digital-ministry.json": d => { window.digitalTopics = list(d.topics); window.digitalDownloads = list(d.downloads); },
-    "ai-knowledge.json": d => { window.aiKnowledge = list(d.entries); }
+    "ai-knowledge.json": d => { window.aiKnowledge = list(d.entries); },
+    "mentors.json": d => { window.mentors = list(d.mentors); window.mentorsIntro = d.intro || ""; },
+    "bible-journey.json": d => { window.bibleJourneyPath = list(d.path); window.bibleJourneyPrograms = list(d.programs); },
+    "page-text.json": d => { window.pageText = d.pages || {}; }
   };
   const SCRIPTS = ["js/youtube.js", "js/main.js", "js/pathways.js", "js/academy.js", "js/learning.js", "js/ai-chat.js"];
 

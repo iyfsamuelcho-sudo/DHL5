@@ -114,24 +114,7 @@ const contentCategories = [
     text: "Self-paced courses with lessons, quizzes and a DHL certificate of completion." }
 ];
 
-/* Bible Journey pathway (bible-journey.html) */
-const bibleJourneyPath = [
-  { id: "bj-gospel", title: "Gospel", text: "Understand the message of salvation.", href: "gospel.html" },
-  { id: "bj-disciple", title: "Discipleship", text: "Grow in faith, the Bible and Christian life.", href: "discipleship.html" },
-  { id: "bj-mind", title: "Mind Education", text: "Develop a healthy, disciplined mind.", href: "mind-education.html" },
-  { id: "bj-leader", title: "Leadership", text: "Learn to help others grow.", href: "leadership.html" },
-  { id: "bj-ministry", title: "Ministry", text: "Serve in real ministry.", href: "academy.html#practicum" }
-];
 
-/* Bible Journey programs (the three big cards) */
-const bibleJourneyPrograms = [
-  { id: "gospel", title: "Gospel Class", href: "gospel.html", level: "Beginner", color: "red", photo: "gospel",
-    text: "Learn the Gospel and understand the message of salvation." },
-  { id: "discipleship", title: "Discipleship Training", href: "discipleship.html", level: "Beginner to Intermediate", color: "blue", photo: "discipleship",
-    text: "Develop a deeper understanding of faith, the Bible, and Christian life." },
-  { id: "mind", title: "Mind Education", href: "mind-education.html", level: "Beginner to Intermediate", color: "violet", photo: "mindEducation",
-    text: "Learn principles for a healthy and disciplined mind, good relationships, and a wise perspective on life." }
-];
 
 /* --------------------------------------------------------------------------
    7. LIVE IN KOREA
@@ -221,7 +204,8 @@ const VIDEO_CATEGORY_KEYWORDS = {
    news posts, events, videos, Gospel topics and course, Bible studies,
    discipleship, Mind Education, leadership courses, Live in Korea guides,
    Q&A, Korean expressions, certificate courses, Academy, community groups,
-   daily verses, digital ministry, AI assistant knowledge and site settings.
+   daily verses, digital ministry, AI assistant knowledge, mentors, the Bible
+   Journey pathway and programs, page titles and site settings.
    Edit them with Pages CMS (README section 19) or directly on GitHub.
    js/data-loader.js reads them when a page opens.
    -------------------------------------------------------------------------- */

@@ -1,43 +1,28 @@
 {
   "posts": [
     {
+      "type": "announcement",
       "title": "When Crisis Comes: Danger or Opportunity?",
       "date": "2026-09-29",
-      "type": "facebook",
-      "category": "Gospel & Bible",
       "description": "A crisis consists of two elements: danger and opportunity. Saul looked at Goliath and saw a threat, but David looked through the eyes of faith and saw an opportunity.",
-      "content": "A crisis consists of two elements: danger and opportunity. Thus, when we face a crisis, our future is determined by what we look at.\n\nSaul looked at Goliath and saw a threat, but David looked through the eyes of faith and saw an opportunity.\n\nEverything that comes our way is an opportunity from God to establish and strengthen us.\n\nAs it is written in Romans 8:28:\n\n> \"And we know that all things work together for good to those who love God, to those who are the called according to His purpose.\"\n\nWhen crisis strikes today, will you focus on the danger like Saul, or look through the eyes of faith like David to seize the opportunity God is giving you?",
-      "id": "2026-09-29-when-crisis-comes-danger-or-opportunity",
+      "url": "",
       "image": "assets/images/news/2026-09-29-when-crisis-comes.jpg",
-      "url": "https://www.facebook.com/photo?fbid=122261851070112039&set=a.122205030278112039",
+      "category": "Gospel & Bible",
+      "id": "2026-09-29-when-crisis-comes-danger-or-opportunity",
       "author": "@Samuel Cho",
       "scripture": "Romans 8:28",
       "scriptureVersion": "NKJV",
-      "pinned": false,
-      "sample": false
+      "content": "A crisis consists of two elements: danger and opportunity. Thus, when we face a crisis, our future is determined by what we look at.\n\nSaul looked at Goliath and saw a threat, but David looked through the eyes of faith and saw an opportunity.\n\nEverything that comes our way is an opportunity from God to establish and strengthen us.\n\nAs it is written in Romans 8:28:\n\n> \"And we know that all things work together for good to those who love God, to those who are the called according to His purpose.\"\n\nWhen crisis strikes today, will you focus on the danger like Saul, or look through the eyes of faith like David to seize the opportunity God is giving you?"
     },
     {
+      "pinned": true,
+      "type": "announcement",
       "title": "Welcome to DHL",
       "date": "2026-09-27",
-      "type": "announcement",
-      "category": "From connection to commission",
       "description": "DHL is a community for foreigners in Korea, especially Filipinos. Find practical help and real friends, explore the Gospel, and grow into a leader who helps others grow.",
-      "image": "assets/images/community.jpg",
       "url": "about.html",
-      "pinned": true,
-      "sample": false
-    },
-    {
-      "title": "\"God first\" instead of \"Me first\"",
-      "date": "2026-09-29",
-      "type": "facebook",
-      "category": "Gospel and bible",
-      "description": "Today, an attitude of heart that chooses \"God first\" instead of \"Me first\"\nwill become the key that unlocks the gates of heaven for you.",
-      "content": "In hell, a grand feast was laid out,\nyet everyone was starving and bone-thin.\nTheir spoons were much longer than their arms,\nso even when they scooped up food, they could not put it into their own mouths.\n\nIn heaven, under the exact same conditions,\nthe people looked healthy, radiant, and happy.\nThey were using those same long spoons\nto feed the person sitting across the table.\n\nHeaven and hell are not defined by our circumstances.\n\nThe mindset of \"Me first\" creates hell,\nwhile the attitude of \"You first\" transforms that place into heaven.\n\nToday, an attitude of heart that chooses \"God first\" instead of \"Me first\"\nwill become the key that unlocks the gates of heaven for you.\n\nDo you hold that key in your heart today?",
-      "image": "assets/images/726321639_122261213690112039_2392139677755474859_n.jpg",
-      "url": "https://www.facebook.com/photo?fbid=122261213684112039&set=a.122205030278112039",
-      "pinned": false,
-      "sample": false
+      "image": "assets/images/community.jpg",
+      "category": "From connection to commission"
     }
   ]
 }

@@ -158,31 +158,79 @@
   }
 
   /* ======================= Bible Journey ======================= */
+  /* Programs, their certificate courses and the pathway are edited in
+     Pages CMS ("Bible Journey: pathway & programs", content/bible-journey.json). */
+  const PROGRAM_LESSONS = {
+    gospel: () => ({ list: gospelCourse, minutes: gospelCourse.reduce((a, l) => a + (l.minutes || 15), 0) }),
+    discipleship: () => ({ list: discipleshipPath, minutes: discipleshipPath.length * 20 }),
+    mind: () => ({ list: mindTopics, minutes: mindTopics.reduce((a, l) => a + (l.minutes || 15), 0) })
+  };
+  const programCourses = p => (p.courses || []).map(id => certificateCourses.find(c => c.id === id)).filter(Boolean);
+  function programStats(p) {
+    const g = (PROGRAM_LESSONS[p.id] || (() => ({ list: [], minutes: 0 })))();
+    const done = g.list.filter(x => Progress.isDone(x.id)).length;
+    return { ...g, done, pct: g.list.length ? Math.round((done / g.list.length) * 100) : 0 };
+  }
+  function courseLinks(p) {
+    const cs = programCourses(p);
+    if (!cs.length) return "";
+    return `<div class="program-courses"><p class="program-courses-title">Certificate courses</p><ul>${cs.map(c => {
+      const st = courseState(c);
+      const label = st.status === "planned" ? "Coming later" : st.complete ? "Completed" : st.status === "progress" ? `${st.pct}% done` : levelBadgeText(c.level);
+      return `<li>${st.status === "planned" ? `<span class="pc-name">${esc(c.title)}</span>` : `<a href="course.html?id=${esc(c.id)}">${esc(c.title)}</a>`}<span class="pc-state${st.complete ? " is-done" : ""}">${esc(label)}</span></li>`;
+    }).join("")}</ul></div>`;
+  }
+  const levelBadgeText = l => String(l || "");
+
   if (page === "bible") {
     $("#bj-path").innerHTML = D.metro(bibleJourneyPath, { numbered: true, horizontal: true });
-    const prog = {
-      gospel: { list: gospelCourse, minutes: gospelCourse.reduce((a, l) => a + (l.minutes || 15), 0), course: "gospel-foundations" },
-      discipleship: { list: discipleshipPath, minutes: discipleshipPath.length * 20, course: "discipleship-first-steps" },
-      mind: { list: mindTopics, minutes: mindTopics.reduce((a, l) => a + l.minutes, 0), course: "mind-understanding-heart" }
-    };
     $("#bj-programs").innerHTML = bibleJourneyPrograms.map((p, i) => {
-      const g = prog[p.id], done = g.list.filter(x => Progress.isDone(x.id)).length, pct = Math.round((done / g.list.length) * 100);
-      const course = certificateCourses.find(c => c.id === g.course);
-      return `<li class="program-card prog-card-${p.color}">
+      const g = programStats(p);
+      return `<li class="program-card prog-card-${esc(p.color || "blue")}">
         ${p.photo ? `<span class="card-photo">${D.photoImg(p.photo)}</span>` : ""}
-        <span class="program-step">Step ${i + 1}</span>
+        <span class="program-step">Program ${i + 1}</span>
         <h3>${esc(p.title)}</h3>
         <p>${esc(p.text)}</p>
-        <p class="learn-foot">${levelBadge(p.level)}<span class="learn-time">${icon("clock", "icon icon-sm")}About ${fmtMinutes(g.minutes)}</span><span class="learn-time">${g.list.length} lessons</span></p>
-        <div class="progress" role="progressbar" aria-label="${esc(p.title)} progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}"><span class="progress-fill" style="width:${pct}%"></span></div>
-        <p class="course-status">${done ? `${done} of ${g.list.length} lessons done` : "Not started"}</p>
-        <div class="btn-row"><a class="btn btn-primary btn-small" href="${p.href}">${done ? "Continue" : "Start Learning"}<span class="sr-only">: ${esc(p.title)}</span></a>${course ? `<a class="text-link" href="course.html?id=${course.id}">Certificate course</a>` : ""}</div>
+        <p class="learn-foot">${levelBadge(p.level)}${g.minutes ? `<span class="learn-time">${icon("clock", "icon icon-sm")}About ${fmtMinutes(g.minutes)}</span>` : ""}${g.list.length ? `<span class="learn-time">${g.list.length} lessons</span>` : ""}</p>
+        <div class="progress" role="progressbar" aria-label="${esc(p.title)} progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${g.pct}"><span class="progress-fill" style="width:${g.pct}%"></span></div>
+        <p class="course-status">${g.done ? `${g.done} of ${g.list.length} lessons done` : "Not started"}</p>
+        ${courseLinks(p)}
+        <div class="btn-row"><a class="btn btn-primary btn-small" href="${esc(p.href)}">${g.done ? "Continue" : "Start Learning"}<span class="sr-only">: ${esc(p.title)}</span></a></div>
       </li>`;
     }).join("");
     D.loadPhotos($("#bj-programs"));
-    $("#bj-featured").innerHTML = certificateCourses.filter(c => ["Bible & Gospel", "Discipleship", "Mind Education", "Leadership"].includes(c.category)).sort((a, b) => (a.status === "planned") - (b.status === "planned") || levelRank(a.level) - levelRank(b.level)).slice(0, 6).map(courseMini).join("");
+
+    /* Mind Education: its own section, alongside the pathway */
+    const mind = bibleJourneyPrograms.find(p => p.id === "mind");
+    const mindBox = $("#bj-mind-body");
+    if (mind && mindBox) {
+      const g = programStats(mind);
+      mindBox.innerHTML = `
+        <div class="mind-stats">
+          <p class="learn-foot on-dark">${levelBadge(mind.level)}<span class="learn-time">${icon("clock", "icon icon-sm")}About ${fmtMinutes(g.minutes)}</span><span class="learn-time">${g.list.length} lessons</span></p>
+          <div class="progress" role="progressbar" aria-label="Mind Education progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${g.pct}"><span class="progress-fill" style="width:${g.pct}%"></span></div>
+          <p class="course-status">${g.done ? `${g.done} of ${g.list.length} lessons done` : "Not started"}</p>
+        </div>
+        <ul class="mind-topics">${mindTopics.slice(0, 6).map(t => `<li><a href="mind-education.html#${esc(t.id)}">${esc(t.title)}</a></li>`).join("")}</ul>
+        ${courseLinks(mind)}
+        <div class="btn-row"><a class="btn btn-mango" href="${esc(mind.href)}">${g.done ? "Continue Mind Education" : "Start Mind Education"}</a></div>`;
+    } else if ($("#bj-mind")) $("#bj-mind").hidden = true;
+
+    /* Featured: every course chosen for the three programs */
+    const featured = [...new Map(bibleJourneyPrograms.flatMap(programCourses).map(c => [c.id, c])).values()]
+      .sort((a, b) => (a.status === "planned") - (b.status === "planned") || levelRank(a.level) - levelRank(b.level));
+    $("#bj-featured").innerHTML = featured.length ? featured.map(courseMini).join("") : `<li class="empty">No certificate courses are linked to the programs yet.</li>`;
     browser({ list: bibleItems(), grid: $("#bj-grid"), search: $("#bj-search"), programChips: $("#bj-programs-filter"), levelChips: $("#bj-levels"), count: $("#bj-count"),
       programs: Object.entries(PROGRAM_NAMES) });
+  }
+
+  /* Each program's own page lists the courses chosen for it. */
+  const pcBox = $("#program-courses");
+  if (pcBox) {
+    const p = bibleJourneyPrograms.find(x => x.id === pcBox.dataset.program);
+    const cs = p ? programCourses(p) : [];
+    if (cs.length) $("#program-courses-grid").innerHTML = cs.map(courseMini).join("");
+    else pcBox.hidden = true;
   }
 
   /* ======================= Mind Education ======================= */
@@ -213,7 +261,7 @@
       let link = "";
       if (g.url) link = `<a class="text-link" href="${esc(safeUrl(g.url))}" target="_blank" rel="noopener">${esc(g.linkLabel || `Visit ${new URL(g.url).hostname.replace(/^www\./, "")}`)}${icon("external", "icon icon-sm")}<span class="sr-only"> (opens in a new tab)</span></a>`;
       else if (g.course) link = `<a class="text-link" href="course.html?id=${esc(g.course)}">Start the course</a>`;
-      else if (g.form && formUrl(g.form)) link = `<a class="text-link" href="${esc(formUrl(g.form))}" target="_blank" rel="noopener">Talk to a mentor</a>`;
+      else if (g.form && formUrl(g.form)) link = `<a class="text-link" href="${esc(formUrl(g.form))}"${ext(formUrl(g.form))}>${g.form === "mentor" ? "Talk to a mentor" : "Open the form"}</a>`;
       else if (g.href) link = `<a class="text-link" href="${esc(g.href)}">Open</a>`;
       return `<li class="learn-card guide-card${read ? " is-done" : ""}${g.recommended ? " is-recommended" : ""}" data-guide="${esc(g.id)}">
         ${g.recommended ? `<p class="learn-meta"><span class="rec-badge">${icon("check", "icon icon-sm")}Recommended by DHL</span></p>` : ""}

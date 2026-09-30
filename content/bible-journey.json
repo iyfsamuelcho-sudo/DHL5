@@ -1,0 +1,69 @@
+{
+  "path": [
+    {
+      "id": "bj-gospel",
+      "title": "Gospel",
+      "text": "Understand the message of salvation.",
+      "href": "gospel.html"
+    },
+    {
+      "id": "bj-disciple",
+      "title": "Discipleship",
+      "text": "Grow in faith, the Bible and Christian life.",
+      "href": "discipleship.html"
+    },
+    {
+      "id": "bj-leader",
+      "title": "Leadership",
+      "text": "Learn to help others grow.",
+      "href": "leadership.html"
+    },
+    {
+      "id": "bj-ministry",
+      "title": "Ministry",
+      "text": "Serve in real ministry.",
+      "href": "academy.html#practicum"
+    }
+  ],
+  "programs": [
+    {
+      "id": "gospel",
+      "title": "Gospel Class",
+      "href": "gospel.html",
+      "level": "Beginner",
+      "color": "red",
+      "photo": "gospel",
+      "text": "Learn the Gospel and understand the message of salvation.",
+      "courses": [
+        "gospel-foundations",
+        "romans-study"
+      ]
+    },
+    {
+      "id": "discipleship",
+      "title": "Discipleship Training",
+      "href": "discipleship.html",
+      "level": "Beginner to Intermediate",
+      "color": "blue",
+      "photo": "discipleship",
+      "text": "Develop a deeper understanding of faith, the Bible, and Christian life.",
+      "courses": [
+        "discipleship-first-steps",
+        "discipleship-2"
+      ]
+    },
+    {
+      "id": "mind",
+      "title": "Mind Education",
+      "href": "mind-education.html",
+      "level": "Beginner to Intermediate",
+      "color": "violet",
+      "photo": "mindEducation",
+      "text": "Learn principles for a healthy and disciplined mind, good relationships, and a wise perspective on life.",
+      "courses": [
+        "mind-understanding-heart",
+        "mind-relationships"
+      ]
+    }
+  ]
+}

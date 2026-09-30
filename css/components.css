@@ -677,3 +677,60 @@ code { background: var(--bg); border: 1px solid var(--line); border-radius: 4px;
 .guide-card.is-recommended { border-color: #f0c77a; }
 .guide-card .tips li { margin-bottom: .2rem; }
 .file-warning { margin: 0; padding: .75rem 1rem; background: var(--mango-soft); color: var(--ink); text-align: center; font-weight: 600; }
+
+/* ---------- Mentors page ---------- */
+.mentor-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; }
+.mentor-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(1.25rem, 3vw, 1.75rem); display: flex; flex-direction: column; gap: .9rem; scroll-margin-top: calc(var(--header-h) + 1rem); }
+.mentor-card:target { border-color: var(--mango); box-shadow: 0 0 0 2px var(--mango); }
+.mentor-top { display: flex; gap: 1rem; align-items: center; }
+.mentor-photo { flex: none; width: 88px; height: 88px; border-radius: 50%; object-fit: cover; background: var(--bg); border: 3px solid var(--mango-soft); }
+.mentor-initials { display: grid; place-items: center; background: var(--navy); color: var(--mango); font: 700 1.8rem var(--font-display); border-color: var(--navy-2); }
+.mentor-name { font-size: 1.35rem; margin: 0; }
+.mentor-role { margin: .1rem 0 0; font-weight: 600; color: var(--navy-3); }
+.mentor-langs { margin: .25rem 0 0; display: flex; align-items: center; gap: .35rem; font-size: .92rem; color: var(--text-soft); }
+.mentor-areas { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .4rem; }
+.mentor-areas li { padding: .15rem .65rem; border-radius: 999px; background: #e4edfb; color: #1c4f9f; font-size: .82rem; font-weight: 600; }
+.mentor-bio { color: var(--ink); font-size: 1rem; }
+.mentor-bio p { margin: 0 0 .6rem; }
+.mentor-creds { background: var(--bg); border-radius: var(--r-md); padding: .9rem 1rem; }
+.mentor-creds h3 { font-size: .9rem; margin: 0 0 .4rem; color: var(--text-soft); }
+.mentor-creds ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .35rem; }
+.mentor-creds li { display: flex; gap: .5rem; align-items: flex-start; font-size: .96rem; }
+.mentor-creds .icon { color: var(--teal); margin-top: .25em; }
+.mentor-avail { display: flex; gap: .4rem; align-items: center; margin: 0; color: var(--text-soft); font-size: .95rem; }
+.mentor-contact { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: auto; padding-top: .5rem; border-top: 1px solid var(--line); }
+.mentor-contact .muted { margin: 0; font-size: .95rem; }
+.contact-btn { display: inline-flex; align-items: center; gap: .45rem; min-height: 44px; padding: .5rem 1rem; border-radius: 999px; font: 600 .95rem var(--font-body); text-decoration: none; }
+.contact-btn .icon { width: 1.2em; height: 1.2em; }
+.contact-kakao { background: #fee500; color: #191919; }
+.contact-messenger { background: #0866ff; color: #fff; }
+.contact-email { background: #c5221f; color: #fff; }
+.contact-facebook { background: var(--surface); color: var(--fb); border: 1.5px solid var(--line); }
+a.contact-btn:hover { filter: brightness(.95); text-decoration: underline; }
+.mentors-intro:empty { display: none; }
+.mentors-intro { max-width: 44rem; margin-bottom: 1.25rem; }
+
+/* ---------- Bible Journey: Mind Education band and program courses ---------- */
+.mind-band { background: linear-gradient(135deg, #2b1f57 0%, var(--navy) 70%); }
+.mind-grid { display: grid; gap: 2rem; align-items: center; }
+.mind-kicker { font: 700 .85rem var(--font-display); color: #c7b6ff !important; margin-bottom: .35rem; }
+.mind-lede { font-size: var(--step-1); line-height: 1.5; color: #dcd5f2 !important; }
+.mind-stats { max-width: 26rem; margin: 1.25rem 0; }
+.mind-stats .progress { background: rgba(255,255,255,.18); }
+.mind-stats .progress-fill { background: #b49cff; }
+.mind-stats .course-status { color: #dcd5f2 !important; }
+.learn-foot.on-dark .learn-time { color: #dcd5f2; }
+.mind-topics { list-style: none; margin: 0 0 1.25rem; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+.mind-topics a { display: inline-block; padding: .4rem .85rem; border-radius: 999px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #fff; text-decoration: none; font-size: .92rem; }
+.mind-topics a:hover { background: rgba(255,255,255,.18); }
+.mind-band .program-courses { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.15); }
+.mind-band .program-courses a, .mind-band .pc-name { color: #fff; }
+.mind-band .program-courses-title, .mind-band .pc-state { color: #dcd5f2; }
+.program-courses { margin: .5rem 0; padding: .75rem .9rem; border-radius: var(--r-sm); background: var(--bg); border: 1px solid var(--line); }
+.program-courses-title { font-size: .8rem !important; font-weight: 700; color: var(--text-soft); margin: 0 0 .35rem !important; }
+.program-courses ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .35rem; }
+.program-courses li { display: flex; justify-content: space-between; gap: .75rem; align-items: baseline; font-size: .95rem; }
+.pc-state { font-size: .8rem; color: var(--text-soft); white-space: nowrap; }
+.pc-state.is-done { color: var(--teal); font-weight: 600; }
+.pc-name { color: var(--text-soft); }
+.mentor-channels { grid-template-columns: 1fr !important; }

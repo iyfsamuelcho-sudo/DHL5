@@ -104,3 +104,6 @@
   .admin-grid { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); }
   .admin-preview { position: sticky; top: calc(var(--header-h) + 1rem); }
 }
+@media (min-width: 800px) { .mentor-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .mind-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 3rem; } }
+@media (min-width: 1200px) { .mentor-grid { grid-template-columns: repeat(3, 1fr); } }
