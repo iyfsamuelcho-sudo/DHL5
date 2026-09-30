@@ -2,13 +2,15 @@
   "categories": [
     {
       "id": "ock-soo-park",
-      "title": "Pastor. Ock Soo Park",
+      "title": "Dr. Pastor Ock Soo Park",
+      "description": "Senior Pastor of Good News Gangnam Church\nFounder of International Youth Fellowship (IYF)\nFounder of Gracias Choir\nChairman of the Board of Gimcheon University",
       "image": "assets/images/p_posp (1).jpg",
       "enabled": true
     },
     {
       "id": "samuel-cho",
-      "title": "Prof. Gichun \"Samuel\" Cho",
+      "title": "Dr. Gichun \"Samuel\" Cho",
+      "description": "\nProfessor of Theology at Gimcheon University\n22 Years of Missionary Service in the Philippines\n",
       "image": "assets/images/KakaoTalk_20260930_215447888 (1).jpg",
       "enabled": true
     }
