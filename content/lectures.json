@@ -38,7 +38,27 @@
       "title": "Dr. Gichun \"Samuel\" Cho",
       "description": "\n- Professor of Theology at Gimcheon University\n\n- 22 Years of Missionary Service in the Philippines\n",
       "image": "assets/images/KakaoTalk_20260930_215447888 (1).jpg",
-      "enabled": true
+      "enabled": true,
+      "lectures": [
+        {
+          "id": "Book-of-Acts-Samuel-Cho",
+          "title": "Book of Acts",
+          "type": "playlist",
+          "date": "2026-10-01",
+          "speaker": "Samuel Cho",
+          "files": [
+            {
+              "label": "Orientation Acts",
+              "file": "assets/images/Orientation Acts.pptx"
+            },
+            {
+              "label": "Acts- Lecture 1",
+              "file": "assets/images/Acts - Lecture 1.pptx"
+            }
+          ],
+          "enabled": true
+        }
+      ]
     }
   ]
 }
