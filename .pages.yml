@@ -1520,6 +1520,26 @@ content:
       - name: page_intro
         label: 'Page introduction: Videos, articles, slides and study materials…'
         type: text
+    - name: account
+      label: My account
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: My account'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: Log in or create a free account to open…'
+        type: text
+    - name: privacy
+      label: Privacy Policy
+      type: object
+      fields:
+      - name: page_title
+        label: 'Page title: Privacy Policy'
+        type: string
+      - name: page_intro
+        label: 'Page introduction: How we collect, use and protect your…'
+        type: text
 - name: lectures
   label: Lectures
   type: file
@@ -1670,6 +1690,11 @@ content:
   - name: location
     label: Location
     type: string
+  - name: membersUrl
+    label: Members service address
+    type: string
+    description: Leave empty until the members service is set up on Namecheap. Then enter https://members.diasporahubforleaders.com
+      to turn on log in and members-only lectures.
   - name: forms
     label: Forms (Google Forms links)
     type: object
