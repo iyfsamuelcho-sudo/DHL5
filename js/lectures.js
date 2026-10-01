@@ -176,8 +176,11 @@
     const e = ext(url), label = f.label || url.split("/").pop();
     const office = ["ppt", "pptx", "doc", "docx", "xls", "xlsx"].includes(e);
     const kind = { pdf: "PDF", ppt: "PowerPoint", pptx: "PowerPoint", doc: "Word", docx: "Word", xls: "Excel", xlsx: "Excel", mp3: "Audio", m4a: "Audio" }[e] || (isExternal(url) ? "Link" : "File");
-    const viewOnline = office && !f.protected && isExternal(abs(url)) && !/^(localhost|127\.)/.test(location.hostname)
-      ? `<a class="btn btn-quiet btn-small" href="https://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(abs(url))}" target="_blank" rel="noopener">View online<span class="sr-only">: ${esc(label)} (opens in a new tab)</span></a>` : "";
+    /* Office files open in Microsoft's free viewer. Protected (members/students) files use the
+       30-minute link the members service gives logged-in members. */
+    const viewSrc = f.viewUrl || (!f.protected && isExternal(abs(url)) && !/^(localhost|127\.)/.test(location.hostname) ? abs(url) : "");
+    const viewOnline = office && viewSrc
+      ? `<a class="btn btn-quiet btn-small" href="https://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(viewSrc)}" target="_blank" rel="noopener">View online<span class="sr-only">: ${esc(label)} (opens in a new tab)</span></a>` : "";
     const open = (isExternal(url) && !(f.protected && e !== "pdf")) || e === "pdf"
       ? `<a class="btn btn-primary btn-small" href="${esc(safeUrl(url))}" target="_blank" rel="noopener">Open<span class="sr-only">: ${esc(label)} (opens in a new tab)</span></a>` : "";
     const download = f.protected && e !== "pdf" ? `<a class="btn btn-quiet btn-small" href="${esc(url)}">Download<span class="sr-only">: ${esc(label)}</span></a>`
@@ -218,35 +221,82 @@
     loadTasks($("#lec-tasks"));
   }
 
-  /* ---------- Student tasks (after the files) ---------- */
+  /* ---------- Student tasks: buttons next to the files, panels just below ---------- */
   const fmtDate = d => (d ? longDate(String(d).slice(0, 10)) : "");
+  const TASK_ICON = { assignment: "📝", quiz: "✅", discussion: "💬" };
   function requestButton(user) {
     if (user && user.studentRequested) return '<p class="muted">✓ Your request to become a student has been sent. DHL will let you know.</p>';
     return '<button type="button" class="btn btn-mango btn-small" data-request-student>Request to become a student</button>';
   }
-  function taskPanel(t, sess) {
+  const statusChip = t => {
+    if (t.type === "discussion") return t.canDo && t.myPostCount ? `<span class="task-chip status-reviewed">You posted ${t.myPostCount}</span>` : "";
+    return t.submission ? `<span class="task-chip status-${esc(t.submission.status)}">${esc(t.submission.statusLabel)}${t.submission.score ? ` · ${esc(t.submission.score)}` : ""}</span>` : "";
+  };
+  function accessMessage(t, sess) {
     const M = window.DHLMembers, back = M.here();
-    if (!t.canDo) {
-      if (!sess.loggedIn) return `<p>This task is for <strong>DHL students</strong>. Log in or create a free account, then ask to become a student.</p>
-        <div class="btn-row"><a class="btn btn-mango btn-small" href="${esc(M.accountUrl("register", back))}">Create a free account</a><a class="btn btn-quiet btn-small" href="${esc(M.accountUrl("login", back))}">Log in</a></div>`;
-      return `<p>This task is for <strong>DHL students</strong>. You're logged in as a member.</p>${requestButton(sess.user)}`;
-    }
+    if (!sess.loggedIn) return `<p>This ${esc(t.typeLabel.toLowerCase())} is for <strong>DHL students</strong>. Log in or create a free account, then ask to become a student.</p>
+      <div class="btn-row"><a class="btn btn-mango btn-small" href="${esc(M.accountUrl("register", back))}">Create a free account</a><a class="btn btn-quiet btn-small" href="${esc(M.accountUrl("login", back))}">Log in</a></div>`;
+    return `<p>This ${esc(t.typeLabel.toLowerCase())} is for <strong>DHL students</strong>. You're logged in as a member.</p>${requestButton(sess.user)}`;
+  }
+  function resultBox(t) {
+    const sub = t.submission; if (!sub) return "";
+    return `<div class="task-status status-${esc(sub.status)}">
+      <p><strong>${esc(sub.statusLabel)}</strong> · submitted ${fmtDate(sub.submittedAt)}${sub.score ? ` · <strong>Score: ${esc(sub.score)}</strong>` : ""}</p>
+      ${sub.feedback ? `<div class="task-feedback"><p class="task-feedback-label">Feedback from DHL</p>${articleHtml(sub.feedback)}</div>` : ""}
+      ${sub.file ? `<p>Your file: <a href="${esc(sub.file.url)}">${esc(sub.file.name)}</a></p>` : ""}
+    </div>`;
+  }
+  function assignmentForm(t) {
     const sub = t.submission;
-    return `
-      ${t.instructions ? `<div class="task-instructions">${articleHtml(t.instructions)}</div>` : ""}
-      ${t.due ? `<p class="task-due">${icon("calendar", "icon icon-sm")}Due ${fmtDate(t.due)}</p>` : ""}
-      ${sub ? `<div class="task-status status-${esc(sub.status)}">
-          <p><strong>${esc(sub.statusLabel)}</strong> · submitted ${fmtDate(sub.submittedAt)}${sub.score ? ` · <strong>Score: ${esc(sub.score)}</strong>` : ""}</p>
-          ${sub.feedback ? `<div class="task-feedback"><p class="task-feedback-label">Feedback from DHL</p>${articleHtml(sub.feedback)}</div>` : ""}
-          ${sub.file ? `<p>Your file: <a href="${esc(sub.file.url)}">${esc(sub.file.name)}</a></p>` : ""}
-        </div>` : ""}
-      <form class="admin-form task-form" novalidate data-task="${t.id}">
+    return `<form class="admin-form task-form" novalidate data-task="${t.id}">
+      <div class="form-msg"></div>
+      ${t.allowText ? `<div class="field"><label for="ta-${t.id}">Your answer</label><textarea id="ta-${t.id}" name="answer" rows="6" aria-describedby="ta-${t.id}-err">${esc(sub ? sub.answer : "")}</textarea><p class="field-error" id="ta-${t.id}-err" hidden></p></div>` : ""}
+      ${t.allowFile ? `<div class="field"><label for="tf-${t.id}">${sub && sub.file ? "Replace your file (optional)" : "Attach a file (optional)"}</label><input id="tf-${t.id}" name="file" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.jpg,.jpeg,.png,.mp3,.m4a"><p class="field-hint">PDF, Word, PowerPoint, Excel, image or MP3.</p></div>` : ""}
+      ${sub && sub.file ? '<input type="hidden" name="keep_file" value="1">' : ""}
+      <button type="submit" class="btn btn-primary">${sub ? "Update my submission" : "Submit"}</button>
+    </form>`;
+  }
+  function quizForm(t) {
+    const r = t.quizResult, done = !!t.submission;
+    const qs = (t.questions || []).map((q, i) => {
+      const mine = r ? r.answers[i] : null, mark = r && r.marks ? r.marks[i] : null, right = r && r.correctAnswers ? r.correctAnswers[i] : null;
+      const legend = `<legend><span class="quiz-n">${i + 1}.</span> ${esc(q.q)}${mark === true ? ' <span class="qmark ok">✅ Correct</span>' : mark === false ? ' <span class="qmark no">❌ Not quite</span>' : ""}</legend>`;
+      if (q.type === "text") return `<fieldset class="quiz-q">${legend}<label class="sr-only" for="qa-${t.id}-${i}">Your answer</label><textarea id="qa-${t.id}-${i}" name="answers[${i}]" rows="3">${esc(mine || "")}</textarea></fieldset>`;
+      return `<fieldset class="quiz-q${mark === true ? " is-right" : mark === false ? " is-wrong" : ""}">${legend}${q.options.map((o, oi) => `
+        <label class="quiz-opt${right === oi && mark === false ? " is-correct-answer" : ""}"><input type="radio" name="answers[${i}]" value="${oi}" ${mine === oi ? "checked" : ""}> <span>${esc(o)}${right === oi && mark === false ? " <em>(correct answer)</em>" : ""}</span></label>`).join("")}</fieldset>`;
+    }).join("");
+    return `${done ? `<p class="task-retake-note">You can change your answers and submit again.</p>` : ""}
+      <form class="admin-form task-form quiz-form" novalidate data-task="${t.id}">
         <div class="form-msg"></div>
-        ${t.allowText ? `<div class="field"><label for="ta-${t.id}">Your answer</label><textarea id="ta-${t.id}" name="answer" rows="6" aria-describedby="ta-${t.id}-err">${esc(sub ? sub.answer : "")}</textarea><p class="field-error" id="ta-${t.id}-err" hidden></p></div>` : ""}
-        ${t.allowFile ? `<div class="field"><label for="tf-${t.id}">${sub && sub.file ? "Replace your file (optional)" : "Attach a file (optional)"}</label><input id="tf-${t.id}" name="file" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.jpg,.jpeg,.png,.mp3,.m4a"><p class="field-hint">PDF, Word, PowerPoint, Excel, image or MP3.</p></div>` : ""}
-        ${sub && sub.file ? '<input type="hidden" name="keep_file" value="1">' : ""}
-        <button type="submit" class="btn btn-primary">${sub ? "Update my submission" : "Submit task"}</button>
+        ${t.passMark != null ? `<p class="muted">Pass mark: ${t.passMark}%</p>` : ""}
+        ${qs || '<p class="muted">This quiz has no questions yet.</p>'}
+        ${qs ? `<button type="submit" class="btn btn-primary">${done ? "Submit again" : "Submit my answers"}</button>` : ""}
       </form>`;
+  }
+  function discussionBox(t) {
+    return `<div class="discussion" data-discussion="${t.id}"><p class="muted">Loading the discussion…</p></div>
+      <form class="admin-form discussion-form" novalidate data-discussion-form="${t.id}">
+        <div class="form-msg"></div>
+        <div class="field"><label for="db-${t.id}">Your reply</label><textarea id="db-${t.id}" name="body" rows="4" maxlength="5000"></textarea></div>
+        <button type="submit" class="btn btn-primary">Post</button>
+      </form>`;
+  }
+  async function loadDiscussion(id) {
+    const box = document.querySelector(`[data-discussion="${id}"]`); if (!box) return;
+    try {
+      const r = await window.DHLMembers.call("discussion", undefined, { task: id });
+      box.innerHTML = r.posts.length ? `<ol class="posts">${r.posts.map(p => `<li class="post${p.isAdmin ? " is-admin" : ""}${p.mine ? " is-mine" : ""}">
+          <p class="post-meta"><strong>${esc(p.name)}</strong>${p.isAdmin ? ' <span class="task-chip">DHL</span>' : ""} <span class="muted">${fmtDate(p.date)}</span>
+          ${p.mine ? `<button type="button" class="text-btn" data-delete-post="${p.id}" data-task="${id}">Delete</button>` : ""}</p>${articleHtml(p.body)}</li>`).join("")}</ol>`
+        : '<p class="muted">No replies yet. Be the first to share!</p>';
+    } catch (e) { box.innerHTML = `<p class="field-error">${esc(e.message)}</p>`; }
+  }
+  function taskPanel(t, sess) {
+    const files = (t.files || []).length ? `<h4>Files for this ${esc(t.typeLabel.toLowerCase())}</h4><ul class="lec-files">${t.files.map(fileRow).join("")}</ul>` : "";
+    const head = `<p class="task-kind">${TASK_ICON[t.type] || "📝"} ${esc(t.typeLabel)}${t.due ? ` · <span class="task-due-inline">${icon("calendar", "icon icon-sm")}Due ${fmtDate(t.due)}</span>` : ""}</p><h4 class="task-title">${esc(t.title)}</h4>`;
+    if (!t.canDo) return head + accessMessage(t, sess);
+    return head + (t.instructions ? `<div class="task-instructions">${articleHtml(t.instructions)}</div>` : "") + files +
+      (t.type === "quiz" ? resultBox(t) + quizForm(t) : t.type === "discussion" ? discussionBox(t) : resultBox(t) + assignmentForm(t));
   }
   async function loadTasks(box) {
     const M = window.DHLMembers;
@@ -257,24 +307,22 @@
     const tasks = data.tasks || [];
     if (!tasks.length) return;
     sess = { ...sess, loggedIn: data.loggedIn, user: data.user || sess.user };
+    const buttons = tasks.map(t => `<span class="task-inline"><button type="button" class="btn btn-mango btn-small task-btn" id="task-${t.id}" aria-expanded="false" aria-controls="task-panel-${t.id}">${TASK_ICON[t.type] || "📝"} ${esc(t.typeLabel)}: ${esc(t.title)}</button>${statusChip(t)}</span>`).join("");
+    // Next to the Download button of the last file; otherwise its own row.
+    const lastRow = $$(".lecture > .lec-files > .lec-file .btn-row").pop();
+    if (lastRow) lastRow.insertAdjacentHTML("beforeend", buttons);
+    else box.insertAdjacentHTML("beforebegin", `<h3>Student tasks</h3><div class="task-row">${buttons}</div>`);
     box.hidden = false;
-    box.innerHTML = `<h3>Student tasks</h3>` + tasks.map(t => `
-      <div class="task-block" id="task-${t.id}">
-        <div class="task-head">
-          <button type="button" class="btn btn-mango task-btn" aria-expanded="false" aria-controls="task-panel-${t.id}">📝 Task: ${esc(t.title)}</button>
-          ${t.due ? `<span class="task-due-chip">Due ${fmtDate(t.due)}</span>` : ""}
-          ${t.submission ? `<span class="task-chip status-${esc(t.submission.status)}">${esc(t.submission.statusLabel)}</span>` : t.canDo ? "" : '<span class="task-chip">For students</span>'}
-        </div>
-        <div class="task-panel" id="task-panel-${t.id}" hidden>${taskPanel(t, sess)}</div>
-      </div>`).join("");
-    if (location.hash.startsWith("#task-")) { const b = box.querySelector(`${location.hash} .task-btn`); if (b) { b.click(); } }
+    box.innerHTML = tasks.map(t => `<section class="task-panel" id="task-panel-${t.id}" aria-labelledby="task-${t.id}" hidden>${taskPanel(t, sess)}</section>`).join("");
+    if (location.hash.startsWith("#task-")) { const b = document.querySelector(`${location.hash}.task-btn`); if (b) { b.click(); b.scrollIntoView(); } }
   }
   document.addEventListener("click", async e => {
     const btn = e.target.closest(".task-btn");
     if (btn) {
       const panel = document.getElementById(btn.getAttribute("aria-controls")), open = btn.getAttribute("aria-expanded") === "true";
+      $$(".task-btn").forEach(b => { if (b !== btn) { b.setAttribute("aria-expanded", "false"); const p = document.getElementById(b.getAttribute("aria-controls")); if (p) p.hidden = true; } });
       btn.setAttribute("aria-expanded", String(!open)); panel.hidden = open;
-      if (!open) { const f = panel.querySelector("textarea, input, a, button"); if (f) f.focus(); }
+      if (!open) { const d = panel.querySelector("[data-discussion]"); if (d) loadDiscussion(d.dataset.discussion); panel.scrollIntoView({ block: "nearest" }); const f = panel.querySelector("textarea, input, a, button"); if (f) f.focus({ preventScroll: true }); }
       return;
     }
     const req = e.target.closest("[data-request-student]");
@@ -282,9 +330,34 @@
       req.disabled = true;
       try { const r = await window.DHLMembers.call("request-student", {}); req.outerHTML = `<p class="muted">✓ ${esc(r.message)}</p>`; window.DHLMembers.session(true); }
       catch (err) { req.disabled = false; req.insertAdjacentHTML("afterend", `<p class="field-error">${esc(err.message)}</p>`); }
+      return;
+    }
+    const del = e.target.closest("[data-delete-post]");
+    if (del && confirm("Delete your post?")) {
+      try { await window.DHLMembers.call("discussion-delete", { post_id: Number(del.dataset.deletePost) }); loadDiscussion(del.dataset.task); } catch (err) { alert(err.message); }
     }
   });
+  async function refreshTask(id, message) {
+    const box = $("#lec-tasks"), sess = await window.DHLMembers.session();
+    const r = await window.DHLMembers.call("tasks", undefined, { lecture: box.dataset.key });
+    const t = (r.tasks || []).find(x => x.id === Number(id)); if (!t) return;
+    const panel = document.getElementById(`task-panel-${id}`);
+    panel.innerHTML = (message ? `<div class="admin-notice notice-info" role="status" tabindex="-1">✓ ${esc(message)}</div>` : "") + taskPanel(t, sess);
+    const btn = document.getElementById(`task-${id}`), chip = btn.nextElementSibling;
+    if (chip && chip.classList.contains("task-chip")) chip.remove();
+    btn.insertAdjacentHTML("afterend", statusChip(t));
+    const n = panel.querySelector(".notice-info"); if (n) n.focus();
+  }
   document.addEventListener("submit", async e => {
+    const dform = e.target.closest("[data-discussion-form]");
+    if (dform) {
+      e.preventDefault();
+      const id = dform.dataset.discussionForm, ta = dform.querySelector("textarea"), btn = dform.querySelector("button");
+      btn.disabled = true;
+      try { await window.DHLMembers.call("discussion-post", { task_id: Number(id), body: ta.value }); ta.value = ""; dform.querySelector(".form-msg").innerHTML = ""; await loadDiscussion(id); announce("Posted"); }
+      catch (err) { dform.querySelector(".form-msg").innerHTML = `<div class="admin-notice notice-error" role="alert">${esc(err.message)}</div>`; }
+      btn.disabled = false; return;
+    }
     const form = e.target.closest(".task-form"); if (!form) return;
     e.preventDefault();
     const btn = form.querySelector("button[type=submit]"), label = btn.textContent, msg = form.querySelector(".form-msg");
@@ -294,15 +367,11 @@
     $$(".field-error", form).forEach(p => { p.hidden = true; });
     try {
       const r = await window.DHLMembers.upload("submit-task", fd);
-      const block = form.closest(".task-block"), sess = await window.DHLMembers.session();
-      block.querySelector(".task-panel").innerHTML = `<div class="admin-notice notice-info" role="status" tabindex="-1">✓ ${esc(r.message)}</div>` + taskPanel(r.task, sess);
-      const chip = block.querySelector(".task-chip");
-      const html = `<span class="task-chip status-${esc(r.task.submission.status)}">${esc(r.task.submission.statusLabel)}</span>`;
-      chip ? (chip.outerHTML = html) : block.querySelector(".task-head").insertAdjacentHTML("beforeend", html);
-      block.querySelector(".notice-info").focus();
+      await refreshTask(form.dataset.task, r.message);
     } catch (err) {
       const f = (err.data && err.data.fields) || {};
       if (f.answer) { const p = form.querySelector(".field-error"); if (p) { p.textContent = f.answer; p.hidden = false; } }
+      if (err.data && err.data.missing) err.data.missing.forEach(n => { const fs = form.querySelectorAll(".quiz-q")[n - 1]; if (fs) fs.classList.add("is-missing"); });
       msg.innerHTML = `<div class="admin-notice notice-error" role="alert">${esc(err.message)}</div>`;
       btn.disabled = false; btn.textContent = label;
     }

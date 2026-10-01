@@ -157,9 +157,11 @@
         const ts = r.tasks || [];
         mt.innerHTML = ts.length ? ts.map(t => {
           const [cat, lec] = String(t.lecture).split("/");
-          const st = t.submission ? t.submission.statusLabel : "Not submitted yet";
-          return `<li><a href="lectures.html?c=${encodeURIComponent(cat)}&l=${encodeURIComponent(lec || "")}#task-${t.id}"><strong>📝 ${esc(t.title)}</strong>
-            <span class="muted">${esc(st)}${t.due ? ` · due ${esc(t.due)}` : ""}${t.submission && t.submission.score ? ` · score ${esc(t.submission.score)}` : ""}</span></a></li>`;
+          const icon = { assignment: "📝", quiz: "✅", discussion: "💬" }[t.type] || "📝";
+          const st = t.type === "discussion" ? (t.myPostCount ? `You posted ${t.myPostCount}` : "Not joined yet")
+            : t.submission ? t.submission.statusLabel : "Not submitted yet";
+          return `<li><a href="lectures.html?c=${encodeURIComponent(cat)}&l=${encodeURIComponent(lec || "")}#task-${t.id}"><strong>${icon} ${esc(t.title)}</strong>
+            <span class="muted">${esc(t.typeLabel || "Assignment")} · ${esc(st)}${t.due ? ` · due ${esc(t.due)}` : ""}${t.submission && t.submission.score ? ` · score ${esc(t.submission.score)}` : ""}</span></a></li>`;
         }).join("") : '<li class="muted">No tasks yet. They appear on lectures as a 📝 Task button.</li>';
       }).catch(() => { mt.innerHTML = '<li class="muted">Tasks couldn\'t be loaded right now.</li>'; });
       $("#logout-btn").addEventListener("click", async () => { await M.call("logout", {}).catch(() => {}); location.href = "account.html"; });

@@ -652,7 +652,7 @@ Log in, sign up and members-only lectures are provided by a small PHP + MySQL se
 
 - While **Site settings → Members service address** is empty, the website works exactly as before, with no login.
 - When it's set, the header shows **Log in**. Members-only lectures (added in the admin panel) appear on the Lectures page with a 🔒 badge, and `account.html` handles log in, sign-up, forgot password and account deletion.
-- There are two kinds of accounts: **members** (anyone who signs up) and **students** (members you enroll). Students can open students-only lectures and do **tasks**. A task appears as a **📝 Task** button on its lecture, after the files, and you review submissions in the admin panel. See `backend-php/README.md`.
+- There are two kinds of accounts: **members** (anyone who signs up) and **students** (members you enroll). Students can open students-only lectures and do **tasks**: assignments, quizzes (marked automatically) and discussions. A task's button sits next to the lecture's Download buttons, and you review responses in the admin panel. Members' Office files also get **View online**. See `backend-php/README.md`.
 - `privacy.html` is the privacy policy linked from the sign-up form and the footer.
 
 The `backend-php/` folder doesn't need to be on GitHub: it runs on Namecheap. It contains no passwords (those go in `config.php` on the server only).

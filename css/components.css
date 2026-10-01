@@ -864,3 +864,28 @@ a.contact-btn:hover { filter: brightness(.95); text-decoration: underline; }
 .my-tasks a { display: grid; gap: .15rem; padding: .75rem .9rem; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface); color: var(--ink); text-decoration: none; }
 .my-tasks a:hover { border-color: var(--navy); }
 .my-tasks .muted { font-size: .88rem; }
+
+/* ---------- Task types: inline buttons, quiz, discussion ---------- */
+.task-inline { display: inline-flex; flex-wrap: wrap; align-items: center; gap: .35rem; }
+.task-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+.lec-file .btn-row { flex-wrap: wrap; }
+.task-btn[aria-expanded="true"] { box-shadow: inset 0 0 0 2px var(--navy); }
+#lec-tasks .task-panel { border: 2px solid var(--mango); border-radius: var(--r-md); background: var(--surface); padding: 1.1rem 1.25rem; margin: 0 0 1rem; }
+.task-kind { font-size: .85rem; font-weight: 700; color: var(--mango-text); margin: 0 0 .2rem; display: flex; flex-wrap: wrap; gap: .25rem .5rem; align-items: center; }
+.task-due-inline { display: inline-flex; align-items: center; gap: .25rem; color: var(--navy-3); }
+.task-title { font-size: 1.2rem; margin: 0 0 .5rem; }
+.task-panel h4 { margin-top: 1rem; }
+.task-retake-note { font-size: .92rem; color: var(--text-soft); }
+.quiz-form .quiz-q textarea { width: 100%; min-height: 80px; padding: .6rem .8rem; border-radius: var(--r-sm); border: 1.5px solid var(--line); font: 1rem/1.5 var(--font-body); }
+.quiz-q.is-missing { border-color: var(--red); background: #fdf6f7; }
+.qmark { font-size: .85rem; font-weight: 600; margin-left: .35rem; }
+.qmark.ok { color: var(--teal); } .qmark.no { color: var(--red); }
+.quiz-opt.is-correct-answer { background: #e3f4f2; }
+.quiz-opt em { color: #0b5a55; font-style: normal; font-weight: 600; }
+.discussion .posts { list-style: none; margin: .75rem 0 1rem; padding: 0; display: grid; gap: .6rem; }
+.post { padding: .75rem .9rem; border-radius: var(--r-sm); background: var(--bg); border-left: 4px solid var(--line); }
+.post.is-mine { border-left-color: var(--blue); }
+.post.is-admin { border-left-color: var(--mango); background: var(--mango-soft); }
+.post-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem .6rem; margin: 0 0 .3rem; font-size: .92rem; }
+.post-meta .text-btn { font-size: .85rem; margin-left: auto; }
+.post p { margin: 0 0 .35rem; }
