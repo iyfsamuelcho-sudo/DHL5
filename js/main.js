@@ -222,6 +222,7 @@
       <div class="footer-legal">
         <p>© ${new Date().getFullYear()} ${esc(CONFIG.name)}. ${esc(CONFIG.location)}.</p>
         <p>DHL certificates recognize completion of DHL training. They are not government-accredited qualifications.</p>
+        <p><a href="privacy.html">Privacy Policy</a></p>
       </div>`;
   }
 

@@ -806,3 +806,61 @@ a.contact-btn:hover { filter: brightness(.95); text-decoration: underline; }
 .lec-cat-playlist > summary::-webkit-details-marker { display: none; }
 .lec-cat-playlist[open] > summary { margin-bottom: 1rem; }
 .lec-cat-playlist .lec-video { max-width: 52rem; }
+
+/* ---------- Member accounts ---------- */
+.account-link { display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; padding: 0 .85rem; border-radius: 999px; color: #fff; text-decoration: none; font-weight: 600; font-size: .93rem; white-space: nowrap; }
+.account-link:hover { background: rgba(255,255,255,.1); }
+.account-link .icon { width: 1.2rem; height: 1.2rem; }
+.account-panel { max-width: 30rem; }
+.account-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: .25rem; padding: .25rem; background: var(--bg); border-radius: 999px; margin-bottom: 1.25rem; }
+.account-tab { min-height: 42px; border: 0; border-radius: 999px; background: transparent; font: 600 .95rem var(--font-body); color: var(--text-soft); cursor: pointer; }
+.account-tab[aria-selected="true"] { background: var(--navy); color: #fff; }
+.account-note { max-width: 30rem; margin-top: 1rem; }
+.account-hello { display: flex; gap: .75rem; align-items: center; font-size: 1.05rem; }
+.account-hello .icon { width: 2.25rem; height: 2.25rem; padding: .4rem; border-radius: 50%; background: var(--navy); color: #fff; flex: none; }
+.account-danger { max-width: 30rem; margin-top: 1.5rem; }
+.account-danger summary { cursor: pointer; color: var(--red); font-weight: 600; }
+.account-danger form { margin-top: .75rem; }
+#account-root > .admin-notice { max-width: 30rem; margin-bottom: 1rem; }
+.form-msg:empty { display: none; }
+/* Members-only lectures */
+.lec-lock { display: inline-flex; align-items: center; gap: .3rem; padding: .1rem .6rem; border-radius: 999px; font-size: .78rem; font-weight: 700; background: var(--navy); color: var(--mango); }
+.lec-card .lec-badges { display: flex; flex-wrap: wrap; gap: .35rem; }
+.members-gate { margin: 1.5rem 0; padding: clamp(1.25rem, 3vw, 2rem); border-radius: var(--r-lg); background: var(--navy); color: #fff; }
+.members-gate h3 { color: #fff; font-size: var(--step-2); margin-bottom: .35rem; }
+.members-gate p { color: #d3deea; }
+.footer-legal a { color: #c9d6e6; }
+.privacy h2 { font-size: var(--step-1); margin-top: 1.75rem; }
+.privacy ul { margin: 0 0 1rem; }
+.privacy li { margin-bottom: .35rem; }
+.quick-nav a { padding: .5rem .5rem; }
+
+/* ---------- Student tasks ---------- */
+.lec-tasks { margin: 1.5rem 0; }
+.lec-tasks > h3 { margin-bottom: .75rem; }
+.task-block { border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); margin-bottom: .75rem; }
+.task-head { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .75rem; padding: .75rem; }
+.task-btn { text-align: left; }
+.task-due-chip, .task-chip { font-size: .82rem; font-weight: 600; padding: .15rem .6rem; border-radius: 999px; background: #eef2f6; color: var(--navy-3); }
+.task-chip.status-submitted { background: var(--mango-soft); color: var(--mango-text); }
+.task-chip.status-reviewed { background: #e3f4f2; color: #0b5a55; }
+.task-chip.status-revise { background: #fdecef; color: #9b1c2e; }
+.task-panel { padding: 0 1.1rem 1.1rem; border-top: 1px solid var(--line); }
+.task-panel > p:first-child, .task-instructions { margin-top: 1rem; }
+.task-due { display: flex; align-items: center; gap: .35rem; font-weight: 600; color: var(--navy-3); }
+.task-status { margin: 1rem 0; padding: .9rem 1rem; border-radius: var(--r-sm); background: var(--bg); border-left: 4px solid var(--mango); }
+.task-status.status-reviewed { border-left-color: var(--teal); }
+.task-status.status-revise { border-left-color: var(--red); }
+.task-status p { margin: 0 0 .4rem; }
+.task-feedback { margin: .5rem 0; padding: .75rem .9rem; background: var(--surface); border-radius: var(--r-sm); }
+.task-feedback-label { font-size: .8rem; font-weight: 700; color: var(--text-soft); }
+.task-form { margin-top: 1rem; }
+.gate-request .muted { color: #d3deea; }
+/* Account page */
+.role-badge { display: inline-block; margin-left: .35rem; padding: .05rem .55rem; border-radius: 999px; font-size: .78rem; font-weight: 700; background: var(--mango-soft); color: var(--mango-text); vertical-align: middle; }
+.account-box { max-width: 30rem; margin-top: 1.25rem; }
+.account-box h2 { font-size: 1.15rem; }
+.my-tasks { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
+.my-tasks a { display: grid; gap: .15rem; padding: .75rem .9rem; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface); color: var(--ink); text-decoration: none; }
+.my-tasks a:hover { border-color: var(--navy); }
+.my-tasks .muted { font-size: .88rem; }

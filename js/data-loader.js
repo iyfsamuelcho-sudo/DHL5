@@ -17,6 +17,7 @@
       if (d.location != null) CONFIG.location = d.location;
       CONFIG.forms = d.forms || {};
       CONFIG.social = d.social || {};
+      CONFIG.members = { url: d.membersUrl || "" };
     },
     "posts.json": d => { window.ministryPosts = list(d.posts); },
     "events.json": d => { window.ministryEvents = list(d.events); },
@@ -41,7 +42,7 @@
     "page-text.json": d => { window.pageText = d.pages || {}; },
     "lectures.json": d => { window.lectureCategories = list(d.categories); window.lecturesIntro = d.intro || ""; }
   };
-  const SCRIPTS = ["js/youtube.js", "js/main.js", "js/pathways.js", "js/academy.js", "js/learning.js", "js/ai-chat.js"];
+  const SCRIPTS = ["js/youtube.js", "js/main.js", "js/members.js", "js/pathways.js", "js/academy.js", "js/learning.js", "js/ai-chat.js"];
 
   const me = document.currentScript;
   const extra = me && me.dataset.extra ? me.dataset.extra.split(",").map(s => s.trim()).filter(Boolean) : [];

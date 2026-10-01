@@ -2,6 +2,8 @@ User-agent: *
 Allow: /
 Disallow: /knowledge/
 Disallow: /admin.html
+Disallow: /account.html
 Disallow: /backend-example/
+Disallow: /backend-php/
 
 Sitemap: https://www.diasporahubforleaders.com/sitemap.xml

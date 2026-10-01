@@ -32,6 +32,7 @@ Built with plain HTML, CSS and JavaScript. No server, database, build step, paid
 18. [News Admin: publish news from a form](#18-news-admin-publish-news-from-a-form)
 19. [Edit everything with Pages CMS (free)](#19-edit-everything-with-pages-cms-free)
 20. [Uploading the website to GitHub, step by step](#20-uploading-the-website-to-github-step-by-step)
+21. [Member accounts and members-only lectures](#21-member-accounts-and-members-only-lectures)
 
 ---
 
@@ -63,6 +64,8 @@ The design uses a **Seoul-metro route map** as its visual language. Foreigners i
 ├── course.html             Course player: lessons, quiz, certificate (course.html?id=...)
 ├── korea.html              Redirects old links to live-in-korea.html
 ├── news.html               All news, or one full article (news.html?id=...)
+├── account.html            Log in, sign up, forgot password, my account (members service)
+├── privacy.html            Privacy policy
 ├── mentors.html            Mentor profiles and contact links
 ├── lectures.html           Lecture categories, lectures, articles, slides and files
 ├── admin.html              News Admin: sign in and publish news (not linked, not indexed)
@@ -641,3 +644,15 @@ Repository → **Settings → Pages** → Source: **Deploy from a branch**, Bran
 ### D. Updating later
 - **Content:** use Pages CMS (section 19).
 - **A new version of the whole project** (for example after I send you an updated zip): copy the new files into your GitHub Desktop folder, replacing the old ones, then **Commit** and **Push**. Your content edits live in `content/`. Before replacing that folder, make sure your latest content is included, or copy only the files that changed.
+
+
+## 21. Member accounts and members-only lectures
+
+Log in, sign up and members-only lectures are provided by a small PHP + MySQL service on Namecheap Stellar at `members.diasporahubforleaders.com`. The code and a step-by-step setup guide are in `backend-php/` (see `backend-php/README.md`).
+
+- While **Site settings → Members service address** is empty, the website works exactly as before, with no login.
+- When it's set, the header shows **Log in**. Members-only lectures (added in the admin panel) appear on the Lectures page with a 🔒 badge, and `account.html` handles log in, sign-up, forgot password and account deletion.
+- There are two kinds of accounts: **members** (anyone who signs up) and **students** (members you enroll). Students can open students-only lectures and do **tasks**. A task appears as a **📝 Task** button on its lecture, after the files, and you review submissions in the admin panel. See `backend-php/README.md`.
+- `privacy.html` is the privacy policy linked from the sign-up form and the footer.
+
+The `backend-php/` folder doesn't need to be on GitHub: it runs on Namecheap. It contains no passwords (those go in `config.php` on the server only).
